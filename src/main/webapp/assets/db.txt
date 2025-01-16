@@ -1,0 +1,66 @@
+-- Create the database
+CREATE DATABASE IF NOT EXISTS ecommerce;
+
+USE ecommerce;
+
+-- Create the categories table
+CREATE TABLE categories (
+                            id INT AUTO_INCREMENT PRIMARY KEY,
+                            name VARCHAR(255) NOT NULL,
+                            description VARCHAR(255)
+);
+
+-- Create the products table
+CREATE TABLE products (
+                          itemCode VARCHAR(20) PRIMARY KEY,
+                          name VARCHAR(255) NOT NULL,
+                          unitPrice DECIMAL(10, 2) NOT NULL,
+                          qtyOnHand INT DEFAULT 0,
+                          categoryId INT NOT NULL,
+                          FOREIGN KEY (categoryId) REFERENCES categories(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+-- Create the users table
+CREATE TABLE users (
+                       userId VARCHAR(20) PRIMARY KEY,
+                       username VARCHAR(255) NOT NULL UNIQUE,
+                       email VARCHAR(255) NOT NULL UNIQUE,
+                       password VARCHAR(255) NOT NULL,
+                       role ENUM('Admin', 'Customer') NOT NULL DEFAULT 'Customer'
+);
+
+-- Create the orders table
+CREATE TABLE orders (
+                        orderId VARCHAR(20) PRIMARY KEY,
+                        date DATE,
+                        userId VARCHAR(20) NOT NULL,
+                        discount INT DEFAULT 0,
+                        totalPrice DECIMAL(10, 2) NOT NULL,
+                        paymentMethod ENUM('COD', 'Card') NOT NULL DEFAULT 'COD',
+                        FOREIGN KEY (userId) REFERENCES users(userId) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+-- Create the order_details table
+CREATE TABLE order_details (
+                               orderId VARCHAR(20) NOT NULL,
+                               itemCode VARCHAR(20) NOT NULL,
+                               quantity INT NOT NULL,
+                               FOREIGN KEY (orderId) REFERENCES orders(orderId) ON UPDATE CASCADE ON DELETE CASCADE,
+                               FOREIGN KEY (itemCode) REFERENCES products(itemCode) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+-- Create the cart table
+CREATE TABLE cart (
+                      id INT AUTO_INCREMENT PRIMARY KEY,
+                      userId VARCHAR(20) NOT NULL,
+                      FOREIGN KEY (userId) REFERENCES users(userId) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+-- Create the cart_details table
+CREATE TABLE cart_details (
+    cartId INT NOT NULL,
+    itemCode VARCHAR(20) NOT NULL,
+    quantity INT NOT NULL,
+    FOREIGN KEY (itemCode) REFERENCES products(itemCode) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (cartId) REFERENCES cart(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
