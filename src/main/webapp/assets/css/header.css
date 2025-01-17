@@ -1,3 +1,10 @@
+body {
+    font-family: 'Inter', sans-serif;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
 /* Top Bar Styles */
 .top-bar {
     font-size: 0.9rem;
@@ -22,11 +29,17 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    background-color: #5c5c5c;
+    background-color: #1A2B3D;
 }
 
 .navbar-brand {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.navbar-brand span {
+    font-family: "Inter", serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .nav-link {
@@ -34,6 +47,7 @@
     color: black;
     transition: color 0.3s;
     padding: 0.5rem 1rem;
+    color: white;
 }
 
 .nav-link:hover {
@@ -69,7 +83,11 @@
 }
 
 .dropdown-item:hover {
-    background-color: #f8f9fa;
+    background-color: #0d6efd;
+}
+
+.header-logo {
+    height: 40px;
 }
 
 /* Responsive Styles */
@@ -82,11 +100,8 @@
         margin: 1rem 0;
     }
 
+
     .nav-link {
         padding: 0.5rem 0;
-    }
-
-    .d-flex {
-        margin-top: 1rem;
     }
 }
