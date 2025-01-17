@@ -32,7 +32,7 @@
         <nav class="navbar navbar-expand-lg navbar-light p-3">
             <!-- Logo -->
             <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="assets/images/Techno-logo.png" class="header-logo me-3" alt="logo">
+                <img src="${pageContext.request.contextPath}/assets/images/Techno-logo.png" class="header-logo me-3" alt="logo">
                 <span class="fw-bold text-light">Techno Computers</span>
             </a>
 
@@ -49,7 +49,7 @@
                         <a class="nav-link" href="#"><i class="fa-solid fa-users me-1"></i> Customers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa-solid fa-cubes me-1"></i> Products</a>
+                        <a class="nav-link" href="admin/products.jsp"><i class="fa-solid fa-cubes me-1"></i> Products</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="fa-solid fa-truck-fast me-1"></i> Orders</a>
