@@ -48,7 +48,7 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/index.jsp"><i class="fas fa-home me-1"></i> Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-store me-1"></i> Store</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/store.jsp"><i class="fas fa-store me-1"></i> Store</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="fas fa-clipboard-list me-1"></i> My Orders</a>
@@ -67,19 +67,12 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-2"></i>About
-                                Us</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-phone me-2"></i>Contact Us</a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
                             <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
                             </li>
                         </ul>
                     </div>
                     <div class="cart-icon position-relative">
-                        <a href="#" class="text-light text-decoration-none">
+                        <a href="${pageContext.request.contextPath}/cart.jsp" class="text-light text-decoration-none">
                             <i class="fas fa-shopping-cart"></i>
                             <span class="cart-count">3</span>
                         </a>

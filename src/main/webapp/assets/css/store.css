@@ -1,0 +1,140 @@
+:root {
+    --dark-bg: #0a1929;
+    --dark-secondary: #1a2b3d;
+    --blue-primary: #0046be;
+    --blue-secondary: #2563eb;
+    --blue-accent: #60a5fa;
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --border-color: #1e3a5f;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
+}
+
+hr {
+    border-radius: 0.5rem;
+    border: 2px solid var(--border-color);
+    margin: 1rem;
+}
+
+.category-card {
+    background-color: var(--dark-secondary);
+    color: var(--text-primary);
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    background-color: #213850
+}
+
+.category-icon {
+    font-size: 2rem;
+    color: var(--blue-accent);
+}
+
+.product-card {
+    background-color: var(--dark-secondary);
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    height: 100%;
+    position: relative;
+}
+
+.stock-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.product-img {
+    height: 200px;
+    object-fit: contain;
+    padding: 1rem;
+}
+
+.product-title {
+    height: 50px;
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.product-category {
+    color: #888;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+}
+
+.product-price {
+    color: var(--blue-accent);
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.btn-cart {
+    background-color: var(--blue-primary);
+    border: none;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.btn-cart:hover {
+    background-color: var(--blue-secondary);
+}
+
+.filter-section {
+    background-color: var(--dark-secondary);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+}
+
+.price-range {
+    color: var(--blue-accent);
+    font-size: 0.9rem;
+}
+
+/* Search Bar */
+
+.search-bar {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: var(--dark-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    color: var(--text-primary);
+}
+
+.search-btn {
+    padding: 0.75rem 1.5rem;
+    background: var(--blue-primary);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    background: var(--blue-secondary);
+    transform: translateY(-2px);
+}
