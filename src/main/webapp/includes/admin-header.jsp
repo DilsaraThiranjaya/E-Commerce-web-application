@@ -46,16 +46,16 @@
             <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarContent">
                 <ul class="navbar-nav mb-2 me-5 mb-lg-0 mt-lg-0 mt-3">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa-solid fa-users me-1"></i> Customers</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/admin/customers.jsp"><i class="fa-solid fa-users me-1"></i> Customers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="admin/products.jsp"><i class="fa-solid fa-cubes me-1"></i> Products</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/admin/products.jsp"><i class="fa-solid fa-cubes me-1"></i> Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa-solid fa-truck-fast me-1"></i> Orders</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/admin/orders.jsp"><i class="fa-solid fa-truck-fast me-1"></i> Orders</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa-solid fa-list me-1"></i> Categories</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/admin/categories.jsp"><i class="fa-solid fa-list me-1"></i> Categories</a>
                     </li>
                 </ul>
 
@@ -66,7 +66,7 @@
                             <i class="fas fa-user"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin/admin-profile.jsp"><i class="fas fa-user me-2"></i>Profile</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
