@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="assets/css/index.css">
 </head>
 <body>
-<%@include file="includes/customer-header.jsp" %>
+<%@include file="includes/header.jsp" %>
 
 <div class="slider-container">
     <div class="slider">

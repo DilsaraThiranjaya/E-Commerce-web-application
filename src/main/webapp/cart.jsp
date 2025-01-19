@@ -90,10 +90,6 @@
                         <span class="text-muted">Shipping</span>
                         <span class="text-white">$29.99</span>
                     </div>
-                    <div class="d-flex justify-content-between mb-3">
-                        <span class="text-muted">Tax</span>
-                        <span class="text-white">$250.00</span>
-                    </div>
                     <hr class="border-secondary">
                     <div class="d-flex justify-content-between mb-4">
                         <span class="text-white fw-bold">Total</span>

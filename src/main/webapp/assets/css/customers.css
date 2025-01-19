@@ -77,14 +77,16 @@ body {
 /* Toolbar */
 .toolbar {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 2rem;
 }
 
 .search-bar {
     display: flex;
-    gap: 0.75rem;
-    flex: 1;
+    gap: 0.5rem;
+    align-items: center;
+    width: 100%;
 }
 
 .search-select, .filter-select {
@@ -97,22 +99,22 @@ body {
 }
 
 .search-input {
-    flex: 1;
-    background: var(--dark-secondary);
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
+    width: 100%;
     padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    background: var(--dark-secondary);
+    border-radius: 8px;
+    color: var(--text-primary);
 }
 
 .search-btn {
+    padding: 0.75rem 1rem;
     background: var(--blue-primary);
-    color: white;
     border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
+    border-radius: 8px;
+    color: white;
     font-weight: 500;
-    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .search-btn:hover {

@@ -51,7 +51,7 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/store.jsp"><i class="fas fa-store me-1"></i> Store</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-clipboard-list me-1"></i> My Orders</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/my-orders.jsp"><i class="fas fa-clipboard-list me-1"></i> My Orders</a>
                     </li>
                 </ul>
 

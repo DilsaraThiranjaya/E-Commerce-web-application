@@ -44,7 +44,7 @@
             <input type="text" class="search-input" placeholder="Search customers...">
             <button class="search-btn">Search</button>
         </div>
-        <div class="filter-group">
+        <div class="filter-group ms-2">
             <select class="filter-select">
                 <option value="all">All Status</option>
                 <option value="active">Active</option>

@@ -43,30 +43,14 @@
 
             <!-- Navigation Content -->
             <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarContent">
-                <div class="d-flex align-items-flex justify-content-end">
-                    <div class="dropdown">
-                        <a href="#" class="text-light text-decoration-none dropdown-toggle" id="profileDropdown"
-                           data-bs-toggle="dropdown">
-                            <i class="fas fa-user"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-in-alt me-2"></i>Login</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-plus me-2"></i>Sign Up</a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-2"></i>About
-                                Us</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-phone me-2"></i>Contact Us</a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <ul class="navbar-nav mb-2 mb-lg-0 mt-lg-0 mt-3">
+                    <li class="nav-item me-2">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/log-in.jsp"><i class="fas fa-sign-in-alt me-1"></i> Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/sign-up.jsp"><i class="fas fa-user-plus me-1"></i> Sign Up</a>
+                    </li>
+                </ul>
             </div>
         </nav>
     </div>

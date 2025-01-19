@@ -46,19 +46,24 @@ body {
     margin-bottom: 2rem;
 }
 
+/* Quick Stats */
 .quick-stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
 }
 
 .stat-card {
     background: var(--dark-secondary);
-    border-radius: 12px;
+    border-radius: 0.75rem;
     padding: 1.5rem;
     border: 1px solid var(--border-color);
-    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
 }
 
 .stat-title {
@@ -66,11 +71,13 @@ body {
     font-size: 0.875rem;
     font-weight: 500;
     text-transform: uppercase;
+    margin-bottom: 0.5rem;
 }
 
 .stat-value {
-    font-size: 1.5rem;
+    font-size: 1.875rem;
     font-weight: 600;
+    color: var(--blue-accent);
 }
 
 .search-bar {
@@ -162,9 +169,10 @@ body {
 
 /* Card Styles */
 .card {
+    background: var(--dark-secondary);
     border: 1px solid var(--border-color);
-    background-color: var(--dark-secondary);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 0.75rem;
+    overflow: hidden;
 }
 
 .card:hover {

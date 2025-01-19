@@ -165,10 +165,6 @@
                                     <span>Shipping:</span>
                                     <span>$29.99</span>
                                 </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span>Tax:</span>
-                                    <span>$80.00</span>
-                                </div>
                                 <div class="d-flex justify-content-between fw-bold mt-2 pt-2 border-top">
                                     <span>Total:</span>
                                     <span>$1,109.98</span>
