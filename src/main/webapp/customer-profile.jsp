@@ -19,7 +19,6 @@
                  alt="Profile" class="profile-avatar">
             <div class="profile-details">
                 <h1 class="mb-1">John Doe</h1>
-                <p class="mb-3">San Francisco, CA</p>
                 <div class="profile-actions">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">
                         <i class="fas fa-edit me-2"></i>Edit Profile
@@ -64,8 +63,8 @@
                     <div class="form-control">+1 (234) 567-8900</div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Location</label>
-                    <div class="form-control">San Francisco, CA</div>
+                    <label class="form-label">Address</label>
+                    <div class="form-control" style="height: 100px">San Francisco, CA</div>
                 </div>
             </div>
         </div>
@@ -180,14 +179,18 @@
                         </div>
                     </div>
 
-                    <!-- Contact Information -->
+                    <!-- Address -->
                     <div class="row mb-3">
-                        <div class="col-md-6">
+                        <div class="col-12">
                             <div class="mb-3">
-                                <label for="location" class="form-label">Location</label>
-                                <input type="text" class="form-control" id="location" value="San Francisco, CA">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" value="San Francisco, CA">
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="row mb-3">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone</label>

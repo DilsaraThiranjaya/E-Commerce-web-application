@@ -39,19 +39,15 @@
             <select class="search-select">
                 <option value="order">Order ID</option>
                 <option value="customer">Customer Name</option>
-                <option value="status">Status</option>
             </select>
             <input type="text" class="search-input" placeholder="Search orders...">
             <button class="search-btn">Search</button>
         </div>
         <div class="filter-group">
             <select class="filter-select">
-                <option value="all">All Status</option>
+                <option value="all">Status</option>
                 <option value="pending">Pending</option>
-                <option value="processing">Processing</option>
-                <option value="shipped">Shipped</option>
-                <option value="delivered">Delivered</option>
-                <option value="cancelled">Cancelled</option>
+                <option value="cancelled">Completed</option>
             </select>
             <input type="date" class="date-filter" title="Filter by date">
         </div>
@@ -68,7 +64,7 @@
                     <th>Date</th>
                     <th>Total</th>
                     <th>Status</th>
-                    <th>Payment</th>
+                    <th>Payment Method</th>
                     <th class="text-end">Actions</th>
                 </tr>
                 </thead>
@@ -85,7 +81,7 @@
                     <td>2024-01-15</td>
                     <td>$999.99</td>
                     <td><span class="badge bg-warning">Pending</span></td>
-                    <td><span class="badge bg-success">Paid</span></td>
+                    <td><span class="badge bg-success">COD</span></td>
                     <td class="text-end">
                         <button class="btn btn-sm btn-outline-primary me-2" onclick="viewOrder('12345')">
                             <i class="fas fa-eye"></i>
@@ -200,10 +196,7 @@
                         <label class="form-label">New Status</label>
                         <select class="form-select bg-dark border-secondary text-white">
                             <option value="pending">Pending</option>
-                            <option value="processing">Processing</option>
-                            <option value="shipped">Shipped</option>
-                            <option value="delivered">Delivered</option>
-                            <option value="cancelled">Cancelled</option>
+                            <option value="cancelled">Completed</option>
                         </select>
                     </div>
                     <div class="mb-3">

@@ -19,7 +19,7 @@
                  alt="Profile" class="profile-avatar">
             <div class="profile-details">
                 <h1 class="mb-1">John Doe</h1>
-                <p class="mb-3">System Administrator</p>
+                <p class="mb-4">System Administrator</p>
             </div>
         </div>
     </div>
@@ -29,12 +29,20 @@
         <h2 class="section-title">Change Admin Details</h2>
         <form id="changeDetailsForm">
             <div class="mb-3">
+                <label for="changePhoto" class="form-label">Change Photo</label>
+                <input type="file" id="changePhoto" class="form-control">
+            </div>
+            <div class="mb-3">
                 <label for="adminFullName" class="form-label">Full Name</label>
                 <input type="text" id="adminFullName" class="form-control" placeholder="Enter your full name" value="Admin Name">
             </div>
             <div class="mb-3">
                 <label for="adminEmail" class="form-label">Email</label>
                 <input type="email" id="adminEmail" class="form-control" placeholder="Enter your email" value="admin@example.com">
+            </div>
+            <div class="mb-3">
+                <label for="adminPhone" class="form-label">Phone</label>
+                <input type="text" id="adminPhone" class="form-control" placeholder="Enter your phone number" value="+94 766 677 409">
             </div>
             <div class="text-end">
                 <button type="submit" class="btn btn-primary">Save Changes</button>

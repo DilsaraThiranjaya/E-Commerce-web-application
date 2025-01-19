@@ -19,7 +19,7 @@
                         <h1 class="text-white text-center mb-4">Login</h1>
                         <form>
                             <div class="mb-4">
-                                <label class="form-label text-white">Email Address</label>
+                                <label class="form-label text-white">Username</label>
                                 <input type="email" class="form-control bg-dark border-secondary text-white"
                                        placeholder="Enter your email">
                             </div>

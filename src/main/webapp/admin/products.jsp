@@ -42,7 +42,6 @@
             <select class="search-dropdown">
                 <option value="name">Search by Name</option>
                 <option value="category">Search by Category</option>
-                <option value="price">Search by Price</option>
             </select>
             <input type="text" class="search-input" placeholder="Type to search...">
             <button class="search-btn">Search</button>
