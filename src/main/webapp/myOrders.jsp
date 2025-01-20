@@ -5,7 +5,7 @@
     <%@include file="/includes/head.jsp" %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/my-orders.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/myOrders.css">
 </head>
 <body>
 <%@include file="/includes/customer-header.jsp" %>

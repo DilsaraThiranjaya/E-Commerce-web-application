@@ -104,6 +104,18 @@
                             <div class="mt-2">
                                 <div class="product-price">Rs. 55,000.00</div>
                             </div>
+                            <button
+                                    class="btn btn-secondary btn-view"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#productModal"
+                                    data-name="Intel Core i5-14400 Processor"
+                                    data-category="Processors"
+                                    data-price="Rs. 55,000.00"
+                                    data-image="path/to/product-image.jpg"
+                                    data-description="14-core processor suitable for gaming and productivity tasks.">
+                                View Details
+                            </button>
+
                             <button class="btn btn-cart btn-primary">
                                 <i class="fas fa-shopping-cart me-2"></i>Add to Cart
                             </button>
@@ -121,6 +133,18 @@
                             <div class="mt-2">
                                 <div class="product-price">Rs. 134,900.00</div>
                             </div>
+                            <button
+                                    class="btn btn-secondary btn-view"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#productModal"
+                                    data-name="Intel Core i5-14400 Processor"
+                                    data-category="Processors"
+                                    data-price="Rs. 55,000.00"
+                                    data-image="path/to/product-image.jpg"
+                                    data-description="14-core processor suitable for gaming and productivity tasks.">
+                                View Details
+                            </button>
+
                             <button class="btn btn-cart btn-primary">
                                 <i class="fas fa-shopping-cart me-2"></i>Add to Cart
                             </button>
@@ -138,6 +162,18 @@
                             <div class="mt-2">
                                 <div class="product-price">Rs. 336,900.00</div>
                             </div>
+                            <button
+                                    class="btn btn-secondary btn-view"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#productModal"
+                                    data-name="Intel Core i5-14400 Processor"
+                                    data-category="Processors"
+                                    data-price="Rs. 55,000.00"
+                                    data-image="path/to/product-image.jpg"
+                                    data-description="14-core processor suitable for gaming and productivity tasks.">
+                                View Details
+                            </button>
+
                             <button class="btn btn-cart btn-primary">
                                 <i class="fas fa-shopping-cart me-2"></i>Add to Cart
                             </button>
@@ -148,6 +184,34 @@
         </div>
     </div>
 </div>
+
+<%--View Product Modal--%>
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">Product Name</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img id="modalProductImage" src="" alt="Product Image" class="img-fluid rounded">
+                    </div>
+                    <div class="col-md-6">
+                        <h5 id="modalProductCategory" class="text-uppercase text-secondary"></h5>
+                        <h4 id="modalProductPrice" class="text-primary my-3"></h4>
+                        <p id="modalProductDescription"></p>
+                        <button class="btn btn-primary btn-cart">
+                            <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <%@include file="/includes/footer.jsp" %>
 
@@ -163,6 +227,32 @@
             priceDisplay.textContent = 'Rs. 0 - Rs. ' + parseInt(value).toLocaleString();
         });
     });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('productModal');
+        const modalTitle = modal.querySelector('#productModalLabel');
+        const modalImage = modal.querySelector('#modalProductImage');
+        const modalCategory = modal.querySelector('#modalProductCategory');
+        const modalPrice = modal.querySelector('#modalProductPrice');
+        const modalDescription = modal.querySelector('#modalProductDescription');
+
+        document.querySelectorAll('.btn-view').forEach(button => {
+            button.addEventListener('click', () => {
+                const name = button.getAttribute('data-name');
+                const category = button.getAttribute('data-category');
+                const price = button.getAttribute('data-price');
+                const image = button.getAttribute('data-image');
+                const description = button.getAttribute('data-description');
+
+                modalTitle.textContent = name;
+                modalCategory.textContent = category;
+                modalPrice.textContent = price;
+                modalImage.src = image || 'placeholder.jpg'; // Use a default image if none provided
+                modalDescription.textContent = description;
+            });
+        });
+    });
+
 </script>
 
 </body>

@@ -156,3 +156,28 @@ hr {
     background: var(--blue-secondary);
     transform: translateY(-2px);
 }
+
+.modal-content {
+    background-color: var(--dark-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.modal-title {
+    color: var(--blue-accent);
+}
+
+.modal-body img {
+    border: 1px solid var(--border-color);
+}
+
+.btn-view {
+    background-color: var(--blue-secondary);
+    border: none;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.btn-view:hover {
+    background-color: var(--blue-accent);
+}

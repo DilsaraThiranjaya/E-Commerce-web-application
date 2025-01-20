@@ -95,7 +95,7 @@
                         <span class="text-white fw-bold">Total</span>
                         <span class="text-primary fw-bold">$2,779.97</span>
                     </div>
-                    <a href="checkout.html" class="btn btn-primary w-100">
+                    <a href="${pageContext.request.contextPath}/checkOut.jsp" class="btn btn-primary w-100">
                         Proceed to Checkout
                     </a>
                 </div>
