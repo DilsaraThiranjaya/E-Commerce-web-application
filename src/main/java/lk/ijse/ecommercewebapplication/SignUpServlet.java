@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -56,11 +57,13 @@ public class SignUpServlet extends HttpServlet {
 
                 if (!rs2.next()) {
                     if (password.equals(confirmPassword)) {
+                        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
                         String sql3 = "INSERT INTO users (username, email, password, fullName, address, phoneNumber, image)  VALUES (?, ?, ?, ?, ?, ?, ?)";
                         PreparedStatement pstm3 = connection.prepareStatement(sql3);
                         pstm3.setString(1, username);
                         pstm3.setString(2, email);
-                        pstm3.setString(3, password);
+                        pstm3.setString(3, hashedPassword);
                         pstm3.setString(4, fullName);
                         pstm3.setString(5, address);
                         pstm3.setString(6, phone);

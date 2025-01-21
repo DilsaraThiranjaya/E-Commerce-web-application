@@ -77,6 +77,12 @@
             <artifactId>commons-logging</artifactId>
             <version>1.3.4</version>
         </dependency>
+        <!--        Encrypted-->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
     </dependencies>
 
     <build>

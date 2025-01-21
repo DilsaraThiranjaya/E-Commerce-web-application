@@ -76,9 +76,9 @@ CREATE TABLE cart (
 
 -- Create the cart_details table
 CREATE TABLE cart_details (
-    cartId INT NOT NULL,
-    itemCode INT NOT NULL,
-    quantity INT NOT NULL,
-    FOREIGN KEY (itemCode) REFERENCES products(itemCode) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (cartId) REFERENCES cart(id) ON UPDATE CASCADE ON DELETE CASCADE
+                              cartId INT NOT NULL,
+                              itemCode INT NOT NULL,
+                              quantity INT NOT NULL,
+                              FOREIGN KEY (itemCode) REFERENCES products(itemCode) ON UPDATE CASCADE ON DELETE CASCADE,
+                              FOREIGN KEY (cartId) REFERENCES cart(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
