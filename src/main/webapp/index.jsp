@@ -3,12 +3,12 @@
 <html>
 <head>
     <%@include file="includes/head.jsp" %>
-    <link rel="stylesheet" href="assets/css/header.css">
-    <link rel="stylesheet" href="assets/css/footer.css">
-    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
 </head>
 <body>
-<%@include file="includes/admin-header.jsp" %>
+<%@include file="includes/header.jsp" %>
 
 <div class="slider-container">
     <div class="slider">
@@ -90,7 +90,8 @@
 <%@include file="includes/footer.jsp" %>
 
 <%@include file="includes/script.jsp" %>
-<script src="assets/js/index.js"></script>
+
+<script src="${pageContext.request.contextPath}/assets/js/index.js"></script>
 
 </body>
 </html>
