@@ -42,6 +42,7 @@
                                 <div class="col-12 mb-4">
                                     <label class="form-label text-white">Profile Image</label>
                                     <input type="file" name="image" class="form-control bg-dark border-secondary text-white">
+                                    <div id="image-alert" class="alert d-none"></div>
                                 </div>
                                 <!-- Full Name -->
                                 <div class="col-md-6 mb-4">

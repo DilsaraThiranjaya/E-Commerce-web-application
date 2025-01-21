@@ -221,6 +221,13 @@ body {
     animation: spin 0.6s linear infinite;
 }
 
+#image-alert {
+    height: 50px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+}
+
 @keyframes spin {
     to {
         transform: rotate(360deg);

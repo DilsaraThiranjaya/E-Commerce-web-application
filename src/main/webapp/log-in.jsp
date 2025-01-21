@@ -17,15 +17,27 @@
                 <div class="card bg-dark-secondary">
                     <div class="card-body p-4 p-md-5">
                         <h1 class="text-white text-center mb-4">Login</h1>
-                        <form>
+
+                        <!-- Display success or error messages -->
+                        <%
+                            String error = request.getParameter("error");
+                        %>
+
+                        <% if (error != null) { %>
+                        <div class="alert alert-danger">
+                            <%=error%>
+                        </div>
+                        <% } %>
+
+                        <form action="log-in-action" method="post">
                             <div class="mb-4">
-                                <label class="form-label text-white">Username</label>
-                                <input type="email" class="form-control bg-dark border-secondary text-white"
+                                <label class="form-label text-white">Email</label>
+                                <input type="email" name="email" class="form-control bg-dark border-secondary text-white"
                                        placeholder="Enter your email">
                             </div>
                             <div class="mb-4">
                                 <label class="form-label text-white">Password</label>
-                                <input type="password" class="form-control bg-dark border-secondary text-white"
+                                <input type="password" name="password" class="form-control bg-dark border-secondary text-white"
                                        placeholder="Enter your password">
                             </div>
                             <div class="mb-4 d-flex justify-content-between align-items-center">
