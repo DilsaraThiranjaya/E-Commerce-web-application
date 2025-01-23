@@ -18,7 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet(name = "signUpServlet", value = "/sign-up-action")
+@WebServlet(name = "signUpServlet", value = "/sign-up")
 @MultipartConfig
 public class SignUpServlet extends HttpServlet {
     @Resource(name = "java:comp/env/jdbc/pool")

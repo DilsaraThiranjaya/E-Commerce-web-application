@@ -8,7 +8,31 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
 </head>
 <body>
+
+<%
+    Boolean adminLoggedIn = (Boolean) session.getAttribute("adminLoggedIn");
+    Boolean customerLoggedIn = (Boolean) session.getAttribute("customerLoggedIn");
+
+    if (adminLoggedIn != null && adminLoggedIn) {
+%>
+
+<%@include file="includes/admin-header.jsp" %>
+
+<%
+} else if (customerLoggedIn != null && customerLoggedIn) {
+%>
+
+<%@include file="includes/customer-header.jsp" %>
+
+<%
+} else {
+%>
+
 <%@include file="includes/header.jsp" %>
+
+<%
+    }
+%>
 
 <div class="slider-container">
     <div class="slider">

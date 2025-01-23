@@ -16,11 +16,11 @@ $(document).ready(function() {
         }
 
         // Check file type
-        const validTypes = ['image/jpeg', 'image/png'];
+        const validTypes = ['image/jpeg'];
         if (!validTypes.includes(file.type)) {
             $('#image-alert').addClass('alert-danger');
             $('#image-alert').removeClass('d-none');
-            $('#image-alert').text('Invalid file type. Only JPG, PNG are allowed.');
+            $('#image-alert').text('Invalid file type. Only JPG are allowed.');
             // alert('Invalid file type. Only JPG, PNG, and GIF are allowed.');
             $(this).val('');  // Clear the input
             return;

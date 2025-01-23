@@ -46,6 +46,9 @@
             <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarContent">
                 <ul class="navbar-nav mb-2 me-5 mb-lg-0 mt-lg-0 mt-3">
                     <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/index.jsp"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/admin/customers.jsp"><i class="fa-solid fa-users me-1"></i> Customers</a>
                     </li>
                     <li class="nav-item">
@@ -66,12 +69,12 @@
                             <i class="fas fa-user"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin/admin-profile.jsp"><i class="fas fa-user me-2"></i>Profile</a>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/profile-load"><i class="fas fa-user me-2"></i>Profile</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
                             </li>
                         </ul>
                     </div>

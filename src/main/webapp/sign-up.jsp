@@ -36,7 +36,7 @@
                         </div>
                         <% } %>
 
-                        <form action="sign-up-action" method="post" enctype="multipart/form-data">
+                        <form action="sign-up" method="post" enctype="multipart/form-data">
                             <div class="row">
                                 <!-- Photo -->
                                 <div class="col-12 mb-4">

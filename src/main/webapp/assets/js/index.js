@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
   const $slides = $('.slide');
   const $dots = $('.slider-dots');
   let currentSlide = 0;

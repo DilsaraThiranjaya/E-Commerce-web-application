@@ -29,7 +29,7 @@
                         </div>
                         <% } %>
 
-                        <form action="log-in-action" method="post">
+                        <form action="log-in" method="post">
                             <div class="mb-4">
                                 <label class="form-label text-white">Email</label>
                                 <input type="email" name="email" class="form-control bg-dark border-secondary text-white"

@@ -1,3 +1,6 @@
+<%@ page import="dto.UserDTO" %>
+<%@ page import="java.util.Base64" %>
+<%@ page import="java.time.LocalDateTime" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -10,15 +13,18 @@
 <body>
 <%@include file="/includes/customer-header.jsp" %>
 
+<%
+    UserDTO user = (UserDTO) request.getAttribute("user");
+%>
+
 <div class="container py-5">
     <!-- Profile Header -->
     <div class="profile-header">
         <div class="profile-cover"></div>
         <div class="profile-info">
-            <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&auto=format&fit=crop&w=120&q=80"
-                 alt="Profile" class="profile-avatar">
+            <img src="<%=user != null && user.getImage() != null ? "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(user.getImage()) : "default-profile.jpg" %>" alt="User Profile Image" alt="Profile" class="profile-avatar">
             <div class="profile-details">
-                <h1 class="mb-1">John Doe</h1>
+                <h1 class="mb-1"><%= user != null ? user.getFullName() : "Unknown" %></h1>
                 <div class="profile-actions">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">
                         <i class="fas fa-edit me-2"></i>Edit Profile
@@ -44,7 +50,13 @@
         </div>
         <div class="stat-card">
             <div class="stat-title">Member Since</div>
-            <div class="stat-value">2022</div>
+
+            <%
+                LocalDateTime dateTime = user.getDate().toLocalDateTime();
+                String year = String.valueOf(dateTime.getYear());
+            %>
+
+            <div class="stat-value"><%= year%></div>
         </div>
     </div>
 
@@ -56,15 +68,15 @@
                 <h3 class="section-title">Personal Information</h3>
                 <div class="mb-3">
                     <label class="form-label">Email</label>
-                    <div class="form-control">john.doe@example.com</div>
+                    <div class="form-control"><%= user != null ? user.getEmail() : "" %></div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Phone</label>
-                    <div class="form-control">+1 (234) 567-8900</div>
+                    <div class="form-control"><%= user != null ? user.getPhoneNumber() : "" %></div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Address</label>
-                    <div class="form-control" style="height: 100px">San Francisco, CA</div>
+                    <div class="form-control" style="height: 100px"><%= user != null ? user.getAddress() : "" %></div>
                 </div>
             </div>
         </div>
@@ -106,7 +118,7 @@
             <form id="changeUsernameForm">
                 <div class="mb-3">
                     <label for="adminUsername" class="form-label">Username</label>
-                    <input type="text" id="adminUsername" class="form-control" placeholder="Enter your username" value="admin123">
+                    <input type="text" id="adminUsername" class="form-control" placeholder="Enter your username" value="<%= user != null ? user.getUsername() : "" %>">
                 </div>
                 <div class="text-end">
                     <button type="submit" class="btn btn-primary">Update Username</button>
@@ -151,14 +163,16 @@
                 <form id="editProfileForm">
                     <!-- Profile Picture Section -->
                     <div class="mb-4 text-center">
-                        <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&auto=format&fit=crop&w=120&q=80"
+                        <!-- Initial profile image -->
+                        <img id="profileImagePreview" src="${pageContext.request.contextPath}/assets/images/Profile-image.jpg"
                              alt="Profile" class="profile-avatar">
                     </div>
                     <div class="row mb-3">
                         <div class="col-12">
                             <div class="mb-3">
                                 <label class="form-label">Change Photo</label>
-                                <input type="file" class="form-control bg-dark border-secondary text-white" required>
+                                <!-- File input to select image -->
+                                <input type="file" class="form-control bg-dark border-secondary text-white" id="fileInput" required>
                             </div>
                         </div>
                     </div>
@@ -168,13 +182,13 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="fullName" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="fullName" value="John Doe">
+                                <input type="text" class="form-control" id="fullName" value="<%= user != null ? user.getFullName() : "" %>">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" value="john.doe@example.com">
+                                <input type="email" class="form-control" id="email" value="<%= user != null ? user.getEmail() : "" %>">
                             </div>
                         </div>
                     </div>
@@ -184,7 +198,7 @@
                         <div class="col-12">
                             <div class="mb-3">
                                 <label for="address" class="form-label">Address</label>
-                                <input type="text" class="form-control" id="address" value="San Francisco, CA">
+                                <input type="text" class="form-control" id="address" value="<%= user != null ? user.getAddress() : "" %>">
                             </div>
                         </div>
                     </div>
@@ -194,7 +208,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="tel" class="form-control" id="phone" value="+1 (234) 567-8900">
+                                <input type="tel" class="form-control" id="phone" value="<%= user != null ? user.getPhoneNumber() : "" %>">
                             </div>
                         </div>
                     </div>
@@ -211,5 +225,6 @@
 <%@include file="/includes/footer.jsp" %>
 
 <%@include file="/includes/script.jsp" %>
+<script src="${pageContext.request.contextPath}/assets/js/customer-profile.js"></script>
 </body>
 </html>
