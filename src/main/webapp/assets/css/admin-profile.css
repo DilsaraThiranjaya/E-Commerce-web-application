@@ -111,3 +111,10 @@ body {
     border-color: var(--blue-accent);
     box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
 }
+
+#image-alert {
+    height: 50px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+}

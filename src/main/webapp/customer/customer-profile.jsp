@@ -34,6 +34,25 @@
         </div>
     </div>
 
+    <!-- Display success or error messages -->
+    <%
+        String message = request.getParameter("message");
+        String error = request.getParameter("error");
+    %>
+
+    <% if (message != null) { %>
+    <div class="alert alert-success">
+        <%=message%>
+    </div>
+    <% } %>
+
+    <% if (error != null) { %>
+    <div class="alert alert-danger">
+        <%=error%>
+    </div>
+    <% } %>
+
+
     <!-- Profile Stats -->
     <div class="stats-grid">
         <div class="stat-card">
@@ -155,12 +174,13 @@
 <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content bg-dark text-light">
-            <div class="modal-header border-secondary">
-                <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editProfileForm">
+            <form action="profile" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="action" value="profile-info-update">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                     <!-- Profile Picture Section -->
                     <div class="mb-4 text-center">
                         <!-- Initial profile image -->
@@ -172,7 +192,8 @@
                             <div class="mb-3">
                                 <label class="form-label">Change Photo</label>
                                 <!-- File input to select image -->
-                                <input type="file" class="form-control bg-dark border-secondary text-white" id="fileInput" required>
+                                <input type="file" class="form-control bg-dark border-secondary text-white" id="changePhoto" name="image">
+                                <div id="image-alert" class="alert d-none"></div>
                             </div>
                         </div>
                     </div>
@@ -182,13 +203,13 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="fullName" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="fullName" value="<%= user != null ? user.getFullName() : "" %>">
+                                <input type="text" class="form-control" name="fullName" id="fullName" placeholder="Enter your full name" value="<%= user != null ? user.getFullName() : "" %>">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" value="<%= user != null ? user.getEmail() : "" %>">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="<%= user != null ? user.getEmail() : "" %>">
                             </div>
                         </div>
                     </div>
@@ -198,7 +219,7 @@
                         <div class="col-12">
                             <div class="mb-3">
                                 <label for="address" class="form-label">Address</label>
-                                <input type="text" class="form-control" id="address" value="<%= user != null ? user.getAddress() : "" %>">
+                                <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address" value="<%= user != null ? user.getAddress() : "" %>">
                             </div>
                         </div>
                     </div>
@@ -208,16 +229,17 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="tel" class="form-control" id="phone" value="<%= user != null ? user.getPhoneNumber() : "" %>">
+                                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" value="<%= user != null ? user.getPhoneNumber() : "" %>">
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer border-secondary">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="saveProfileChanges()">Save Changes</button>
-            </div>
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+
         </div>
     </div>
 </div>
@@ -225,6 +247,6 @@
 <%@include file="/includes/footer.jsp" %>
 
 <%@include file="/includes/script.jsp" %>
-<script src="${pageContext.request.contextPath}/assets/js/customer-profile.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/profile.js"></script>
 </body>
 </html>

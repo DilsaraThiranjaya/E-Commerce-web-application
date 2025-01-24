@@ -34,8 +34,6 @@ public class SignUpServlet extends HttpServlet {
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirm-password");
 
-        System.out.println(fullName + username + email + phone + address + password + confirmPassword);
-
         Part imagePart = req.getPart("image");
         InputStream imageInputStream = null;
 

@@ -190,6 +190,13 @@ body {
     font-size: 0.875rem;
 }
 
+#image-alert {
+    height: 50px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+}
+
 /* Responsive Design */
 @media (max-width: 992px) {
     .stats-grid {

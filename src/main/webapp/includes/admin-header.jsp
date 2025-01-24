@@ -69,7 +69,7 @@
                             <i class="fas fa-user"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/profile-load"><i class="fas fa-user me-2"></i>Profile</a>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/profile"><i class="fas fa-user me-2"></i>Profile</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">

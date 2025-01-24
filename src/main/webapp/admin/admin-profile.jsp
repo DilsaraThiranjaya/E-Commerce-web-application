@@ -29,27 +29,58 @@
         </div>
     </div>
 
+    <!-- Display success or error messages -->
+    <%
+        String message = request.getParameter("message");
+        String error = request.getParameter("error");
+    %>
+
+    <% if (message != null) { %>
+    <div class="alert alert-success">
+        <%=message%>
+    </div>
+    <% } %>
+
+    <% if (error != null) { %>
+    <div class="alert alert-danger">
+        <%=error%>
+    </div>
+    <% } %>
+
     <!-- Change Admin Details Section -->
     <div class="profile-section">
         <h2 class="section-title">Change Admin Details</h2>
-        <form id="changeDetailsForm">
+        <form action="profile" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="profile-info-update">
+            <!-- Profile Picture Section -->
+            <div class="mb-3 text-center">
+                <!-- Initial profile image -->
+                <img id="profileImagePreview" src="${pageContext.request.contextPath}/assets/images/Profile-image.jpg"
+                     alt="Profile" class="profile-avatar">
+            </div>
             <div class="mb-3">
                 <label for="changePhoto" class="form-label">Change Photo</label>
-                <input type="file" id="changePhoto" class="form-control">
+                <input type="file" id="changePhoto" name="image" class="form-control">
+                <div id="image-alert" class="alert d-none"></div>
             </div>
             <div class="mb-3">
                 <label for="adminFullName" class="form-label">Full Name</label>
-                <input type="text" id="adminFullName" class="form-control" placeholder="Enter your full name"
+                <input type="text" id="adminFullName" name="fullName" class="form-control" placeholder="Enter your full name"
                        value="<%= user != null ? user.getFullName() : "" %>">
             </div>
             <div class="mb-3">
                 <label for="adminEmail" class="form-label">Email</label>
-                <input type="email" id="adminEmail" class="form-control" placeholder="Enter your email"
+                <input type="email" id="adminEmail" name="email" class="form-control" placeholder="Enter your email"
                        value="<%= user != null ? user.getEmail() : "" %>">
             </div>
             <div class="mb-3">
+                <label for="adminAddress" class="form-label">Address</label>
+                <input type="text" id="adminAddress" name="address" class="form-control" placeholder="Enter your address"
+                       value="<%= user != null ? user.getAddress() : "" %>">
+            </div>
+            <div class="mb-3">
                 <label for="adminPhone" class="form-label">Phone</label>
-                <input type="text" id="adminPhone" class="form-control" placeholder="Enter your phone number"
+                <input type="text" id="adminPhone" name="phone" class="form-control" placeholder="Enter your phone number"
                        value="<%= user != null ? user.getPhoneNumber() : "" %>">
             </div>
             <div class="text-end">
@@ -101,5 +132,6 @@
 <%@include file="/includes/footer.jsp" %>
 
 <%@include file="/includes/script.jsp" %>
+<script src="${pageContext.request.contextPath}/assets/js/profile.js"></script>
 </body>
 </html>
