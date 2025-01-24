@@ -37,4 +37,39 @@ $(document).ready(function() {
             return;
         }
     });
+
+    document.getElementById("addProfileImage").addEventListener("change", function(event) {
+        var file = event.target.files[0];  // Get the selected file
+
+        if (file) {
+            // Create a FileReader to read the image file
+            var reader = new FileReader();
+
+            // Define what happens when the file is read
+            reader.onload = function(e) {
+                // Update the image preview source to the selected image
+                document.getElementById("profileImagePreview").src = e.target.result;
+            };
+
+            // Read the file as a data URL
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.querySelectorAll('.toggle-password').forEach(button => {
+        button.addEventListener('click', () => {
+            const targetInput = document.querySelector(button.getAttribute('data-target'));
+            const icon = button.querySelector('i');
+
+            if (targetInput.type === 'password') {
+                targetInput.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                targetInput.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        });
+    });
 });

@@ -23,22 +23,23 @@ public class LogInServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
-        String hashPassword = req.getParameter("password");
+        String password = req.getParameter("password");
 
         try (Connection connection = dataSource.getConnection()) {
-            String sql1 = "SELECT password, role FROM users WHERE email=?";
+            String sql1 = "SELECT userId, password, role FROM users WHERE email=?";
             PreparedStatement pstm1 = connection.prepareStatement(sql1);
             pstm1.setString(1, email);
             ResultSet resultSet = pstm1.executeQuery();
 
             if (resultSet.next()) {
-                if (BCrypt.checkpw(hashPassword, resultSet.getString("password"))) {
+                if (BCrypt.checkpw(password, resultSet.getString("password"))) {
                     if (resultSet.getString("role").equals("Admin")) {
                         req.getSession().setAttribute("adminLoggedIn", true);
                     } else{
                         req.getSession().setAttribute("customerLoggedIn", true);
                     }
                     req.getSession().setAttribute("userEmail", email);
+                    req.getSession().setAttribute("userId", resultSet.getString("userId"));
                     req.getSession().setAttribute("userRole", resultSet.getString("role"));
                     resp.sendRedirect("index.jsp");
                 } else {

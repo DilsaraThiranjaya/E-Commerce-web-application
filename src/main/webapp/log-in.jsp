@@ -33,12 +33,17 @@
                             <div class="mb-4">
                                 <label class="form-label text-white">Email</label>
                                 <input type="email" name="email" class="form-control bg-dark border-secondary text-white"
-                                       placeholder="Enter your email">
+                                       placeholder="Enter your email" required>
                             </div>
                             <div class="mb-4">
                                 <label class="form-label text-white">Password</label>
-                                <input type="password" name="password" class="form-control bg-dark border-secondary text-white"
-                                       placeholder="Enter your password">
+                                <div class="input-group">
+                                    <input type="password" name="password" id="password" class="form-control bg-dark border-secondary text-white"
+                                           placeholder="Enter your password" required>
+                                    <button type="button" class="btn btn-outline-secondary toggle-password" data-target="#password">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
                             </div>
                             <div class="mb-4 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
@@ -65,6 +70,7 @@
 <%@include file="includes/footer.jsp" %>
 
 <%@include file="includes/script.jsp" %>
+<script src="${pageContext.request.contextPath}/assets/js/log-in.js"></script>
 
 </body>
 </html>
