@@ -1,3 +1,6 @@
+<%@ page import="dto.OrderDTO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Base64" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -18,19 +21,19 @@
     <div class="quick-stats">
         <div class="stat-card">
             <div class="stat-title">Total Orders</div>
-            <div class="stat-value">3,567</div>
+            <div class="stat-value"><%=request.getAttribute("totalOrders")%></div>
         </div>
         <div class="stat-card">
             <div class="stat-title">Pending Orders</div>
-            <div class="stat-value">45</div>
+            <div class="stat-value"><%=request.getAttribute("pendingOrders")%></div>
         </div>
         <div class="stat-card">
             <div class="stat-title">Today's Revenue</div>
-            <div class="stat-value">$12,845</div>
+            <div class="stat-value">Rs. <%=request.getAttribute("todayRevenue")%></div>
         </div>
         <div class="stat-card">
             <div class="stat-title">Monthly Revenue</div>
-            <div class="stat-value">$158,962</div>
+            <div class="stat-value">Rs. <%=request.getAttribute("monthlyRevenue")%></div>
         </div>
     </div>
 
@@ -46,8 +49,8 @@
         <div class="filter-group">
             <select class="filter-select">
                 <option value="all">Status</option>
-                <option value="pending">Pending</option>
-                <option value="cancelled">Completed</option>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
             </select>
             <input type="date" class="date-filter" title="Filter by date">
         </div>
@@ -69,30 +72,51 @@
                 </tr>
                 </thead>
                 <tbody>
+                <%
+                    List<OrderDTO> orderList = (List<OrderDTO>) request.getAttribute("orderList");
+                    if (orderList != null && !orderList.isEmpty()) {
+                        for (OrderDTO order : orderList) {
+                            String statusClass = "Pending".equals(order.getStatus()) ? "warning" : "success";
+                            String paymentClass = "COD".equals(order.getPaymentMethod()) ? "success" : "info";
+                            String customerImage = order.getCustomerImage() != null ?
+                                    Base64.getEncoder().encodeToString(order.getCustomerImage()) : null;
+                %>
                 <tr>
-                    <td>#ORD-12345</td>
+                    <td><%=order.getOrderId()%></td>
                     <td>
                         <div class="d-flex align-items-center">
-                            <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                            <% if (customerImage != null) { %>
+                            <img src="data:image/jpeg;base64,<%=customerImage%>"
                                  class="customer-avatar" alt="Customer">
-                            <div class="ms-3">John Doe</div>
+                            <% } %>
+                            <div class="ms-3"><%=order.getCustomerName()%></div>
                         </div>
                     </td>
-                    <td>2024-01-15</td>
-                    <td>$999.99</td>
-                    <td><span class="badge bg-warning">Pending</span></td>
-                    <td><span class="badge bg-success">COD</span></td>
+                    <td><%=order.getDate()%></td>
+                    <td>Rs. <%=order.getSubTotal().add(order.getShippingCost())%></td>
+                    <td><span class="badge bg-<%=statusClass%>"><%=order.getStatus()%></span></td>
+                    <td><span class="badge bg-<%=paymentClass%>"><%=order.getPaymentMethod()%></span></td>
                     <td class="text-end">
-                        <button class="btn btn-sm btn-outline-primary me-2" onclick="viewOrder('12345')">
+                        <button class="btn btn-sm btn-outline-primary me-2" onclick="viewOrder('<%=order.getOrderId()%>')">
                             <i class="fas fa-eye"></i>
                         </button>
-                        <button class="btn btn-sm btn-outline-warning me-2" onclick="changeOrderStatus('12345')"
+                        <button class="btn btn-sm btn-outline-warning me-2"
+                                onclick="changeOrderStatus('<%=order.getOrderId()%>', '<%=order.getStatus()%>')"
                                 title="Change Status">
                             <i class="fas fa-exchange-alt"></i>
                         </button>
                     </td>
                 </tr>
-                <!-- Add more order rows as needed -->
+                <%
+                    }
+                } else {
+                %>
+                <tr>
+                    <td colspan="7" class="text-center">No orders available.</td>
+                </tr>
+                <%
+                    }
+                %>
                 </tbody>
             </table>
         </div>
@@ -103,7 +127,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content bg-dark-secondary">
                 <div class="modal-header border-secondary">
-                    <h5 class="modal-title text-white">Order Details #ORD-12345</h5>
+                    <h5 class="modal-title text-white">Order Details</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -112,17 +136,13 @@
                             <div class="col-md-6">
                                 <h6 class="text-secondary mb-3">Customer Information</h6>
                                 <div class="customer-details">
-                                    <p class="mb-1">John Doe</p>
-                                    <p class="mb-1">john.doe@example.com</p>
-                                    <p class="mb-1">+1 234-567-8900</p>
+                                    <!-- Populated by JavaScript -->
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <h6 class="text-secondary mb-3">Shipping Address</h6>
                                 <div class="shipping-details">
-                                    <p class="mb-1">123 Main Street</p>
-                                    <p class="mb-1">Apt 4B</p>
-                                    <p class="mb-1">New York, NY 10001</p>
+                                    <!-- Populated by JavaScript -->
                                 </div>
                             </div>
                         </div>
@@ -140,12 +160,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Gaming PC Pro</td>
-                                    <td>1</td>
-                                    <td>$999.99</td>
-                                    <td>$999.99</td>
-                                </tr>
+                                <!-- Populated by JavaScript -->
                                 </tbody>
                             </table>
                         </div>
@@ -155,15 +170,15 @@
                             <div class="col-md-6">
                                 <div class="d-flex justify-content-between mb-2">
                                     <span>Subtotal:</span>
-                                    <span>$999.99</span>
+                                    <span id="orderSubtotal">$0.00</span>
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span>Shipping:</span>
-                                    <span>$29.99</span>
+                                    <span id="orderShipping">$0.00</span>
                                 </div>
                                 <div class="d-flex justify-content-between fw-bold mt-2 pt-2 border-top">
                                     <span>Total:</span>
-                                    <span>$1,109.98</span>
+                                    <span id="orderTotal">$0.00</span>
                                 </div>
                             </div>
                         </div>
@@ -171,71 +186,153 @@
                 </div>
                 <div class="modal-footer border-secondary">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Update Status</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Status Change Modal -->
+    <div class="modal fade" id="changeStatusModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark-secondary">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title text-white">Update Order Status</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateStatusForm">
+                        <div class="mb-4">
+                            <label class="form-label">Current Status</label>
+                            <div class="current-status mb-3">
+                                <span id="currentStatusBadge" class="badge"></span>
+                            </div>
+                            <label class="form-label">New Status</label>
+                            <select class="form-select bg-dark border-secondary text-white" id="newStatus">
+                                <option value="Pending">Pending</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Notify Customer</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="notifyCustomer" checked>
+                                <label class="form-check-label" for="notifyCustomer">
+                                    Send email notification to customer
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="updateStatusBtn">Update Status</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Order Status Change Modal -->
-<div class="modal fade" id="changeStatusModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content bg-dark-secondary">
-            <div class="modal-header border-secondary">
-                <h5 class="modal-title text-white">Update Order Status</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="updateStatusForm">
-                    <div class="mb-4">
-                        <label class="form-label">Current Status</label>
-                        <div class="current-status mb-3">
-                            <span class="badge bg-warning">Pending</span>
-                        </div>
-                        <label class="form-label">New Status</label>
-                        <select class="form-select bg-dark border-secondary text-white">
-                            <option value="pending">Pending</option>
-                            <option value="cancelled">Completed</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Notify Customer</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="notifyCustomer" checked>
-                            <label class="form-check-label" for="notifyCustomer">
-                                Send email notification to customer
-                            </label>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer border-secondary">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Update Status</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <%@include file="/includes/footer.jsp" %>
-
 <%@include file="/includes/script.jsp" %>
 
+<script src="${pageContext.request.contextPath}/assets/js/orders.js"></script>
 <script>
-    function viewOrder(id) {
-        $('#viewOrderModal').modal('show');
-    }
-    function changeOrderStatus(orderId) {
-        // Update current status badge in modal
-        $('#changeStatusModal').modal('show');
+    // Search orders
+    $('.search-btn').click(function() {
+        const searchType = $('.search-select').val();
+        const searchValue = $('.search-input').val();
+        const status = $('.filter-select').val();
+        const date = $('.date-filter').val();
+
+        $.ajax({
+            url: '/E_Commerce_web_application_war_exploded/orders',
+            type: 'GET',
+            data: {
+                searchType: searchType,
+                searchValue: searchValue,
+                status: status,
+                date: date
+            },
+            success: function(response) {
+                location.reload();
+            },
+            error: function() {
+                alert('Error searching orders.');
+            }
+        });
+    });
+
+    // View order details
+    function viewOrder(orderId) {
+        $.ajax({
+            url: '/E_Commerce_web_application_war_exploded/orders',
+            type: 'GET',
+            data: {
+                action: 'view',
+                orderId: orderId
+            },
+            success: function(order) {
+                // Populate modal with order details
+                $('.modal-title').text('Order Details #' + order.orderId);
+                $('.customer-details').html(`
+                <p class="mb-1">${order.customerName}</p>
+                <p class="mb-1">${order.email}</p>
+                <p class="mb-1">${order.phone}</p>
+            `);
+                $('.shipping-details').html(`
+                <p class="mb-1">${order.address}</p>
+                <p class="mb-1">${order.city}</p>
+                <p class="mb-1">${order.state} ${order.zipCode}</p>
+            `);
+
+                // Show the modal
+                $('#viewOrderModal').modal('show');
+            },
+            error: function() {
+                alert('Error loading order details.');
+            }
+        });
     }
 
-    // Initialize tooltips and popovers
-    $(function () {
-        $('[data-bs-toggle="tooltip"]').tooltip();
-        $('[data-bs-toggle="popover"]').popover();
+    // Change order status
+    function changeOrderStatus(orderId, currentStatus) {
+        $('#currentStatusBadge')
+            .removeClass('bg-warning bg-success')
+            .addClass(currentStatus === 'Pending' ? 'bg-warning' : 'bg-success')
+            .text(currentStatus);
+
+        $('#newStatus').val(currentStatus);
+        $('#changeStatusModal').data('orderId', orderId).modal('show');
+    }
+
+    // Update order status
+    $('#updateStatusBtn').click(function() {
+        const orderId = $('#changeStatusModal').data('orderId');
+        const newStatus = $('#newStatus').val();
+        const notifyCustomer = $('#notifyCustomer').is(':checked');
+
+        $.ajax({
+            url: '/E_Commerce_web_application_war_exploded/orders',
+            type: 'PUT',
+            data: {
+                orderId: orderId,
+                status: newStatus,
+                notify: notifyCustomer
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    $('#changeStatusModal').modal('hide');
+                    location.reload();
+                } else {
+                    alert('Error updating order status.');
+                }
+            },
+            error: function() {
+                alert('Error updating order status.');
+            }
+        });
     });
+
 </script>
 </body>
 </html>

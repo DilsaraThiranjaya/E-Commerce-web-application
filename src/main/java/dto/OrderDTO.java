@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,4 +24,7 @@ public class OrderDTO {
     private BigDecimal subTotal;
     private BigDecimal shippingCost;
     private String paymentMethod;
+    private String customerName;
+    private byte[] customerImage;
+    private List<OrderDetailDTO> orderDetails;
 }

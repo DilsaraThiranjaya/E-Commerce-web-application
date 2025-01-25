@@ -52,10 +52,10 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/admin/customers.jsp"><i class="fa-solid fa-users me-1"></i> Customers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/admin/products.jsp"><i class="fa-solid fa-cubes me-1"></i> Products</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/product"><i class="fa-solid fa-cubes me-1"></i> Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/admin/orders.jsp"><i class="fa-solid fa-truck-fast me-1"></i> Orders</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/order"><i class="fa-solid fa-truck-fast me-1"></i> Orders</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/category"><i class="fa-solid fa-list me-1"></i> Categories</a>

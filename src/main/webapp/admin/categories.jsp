@@ -39,24 +39,25 @@
     </div>
     <% } %>
 
-<%--    <div class="quick-stats">--%>
-<%--        <div class="stat-card">--%>
-<%--            <div class="stat-title">Total Categories</div>--%>
-<%--            <div class="stat-value">12</div>--%>
-<%--        </div>--%>
-<%--        <div class="stat-card">--%>
-<%--            <div class="stat-title">Active Categories</div>--%>
-<%--            <div class="stat-value">10</div>--%>
-<%--        </div>--%>
-<%--        <div class="stat-card">--%>
-<%--            <div class="stat-title">Products Categorized</div>--%>
-<%--            <div class="stat-value">248</div>--%>
-<%--        </div>--%>
-<%--        <div class="stat-card">--%>
-<%--            <div class="stat-title">Uncategorized Products</div>--%>
-<%--            <div class="stat-value">3</div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
+    <div class="quick-stats">
+        <div class="stat-card">
+            <div class="stat-title">Total Categories</div>
+            <div class="stat-value">${totalCategories}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-title">Active Categories</div>
+            <div class="stat-value">${activeCategories}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-title">Products Categorized</div>
+            <div class="stat-value">${productsCategorized}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-title">Uncategorized Products</div>
+            <div class="stat-value">${uncategorizedProducts}</div>
+        </div>
+    </div>
+
 
     <div class="toolbar">
         <div class="search-bar">
@@ -323,6 +324,7 @@
             type: 'GET',
             data: { name: name, action: action},
             success: function(response) {
+                console.log(response); // Log the response to check its structure
                 $('#tableBody').empty();
 
                 if (response && response.length > 0) {
@@ -332,28 +334,34 @@
                             : '<span class="badge bg-secondary">Draft</span>';
 
                         const iconHtml = category.icon
-                            ? `<img src="data:image/png;base64,${category.icon}"
-                            alt="Category Icon"
-                            style="width: 40px; height: 40px; object-fit: cover; border-radius: 5%;">`
+                            ? '<img src="data:image/png;base64,' + category.icon + '" ' +
+                            'alt="Category Icon" ' +
+                            'style="width: 40px; height: 40px; object-fit: cover; border-radius: 5%;">'
                             : '<span>No Icon</span>';
 
+                        // Escape special characters in name and desc
+                        const categoryName = $('<div>').text(category.name).html();
+                        const categoryDesc = $('<div>').text(category.desc).html();
+
+                        // console.log(statusBadge + iconHtml+ category.status+ categoryName + categoryDesc);
+
                         $('#tableBody').append(
-                            `<tr>
-                                 <td>${iconHtml}</td>
-                                 <td>${category.name}</td>
-                                 <td>${category.desc}</td>
-                                 <td>${statusBadge}</td>
-                                 <td class="text-end px-4">
-                                    <button class="btn btn-sm btn-outline-primary me-2"
-                                    onclick="editCategory(${category.id}, '${category.name}', '${category.desc}', '${category.status}')">
-                                    <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-danger"
-                                    onclick="deleteCategory(${category.id})">
-                                    <i class="fas fa-trash"></i>
-                                    </button>
-                                 </td>
-                             </tr>`
+                            '<tr>' +
+                            '<td>' + iconHtml + '</td>' +
+                            '<td>' + categoryName + '</td>' +
+                            '<td>' + categoryDesc + '</td>' +
+                            '<td>' + statusBadge + '</td>' +
+                            '<td class="text-end px-4">' +
+                            '<button class="btn btn-sm btn-outline-primary me-2" ' +
+                            'onclick="editCategory(' + category.id + ', \'' + categoryName + '\', \'' + categoryDesc + '\', \'' + category.status + '\')">' +
+                            '<i class="fas fa-edit"></i>' +
+                            '</button>' +
+                            '<button class="btn btn-sm btn-outline-danger" ' +
+                            'onclick="deleteCategory(' + category.id + ')">' +
+                            '<i class="fas fa-trash"></i>' +
+                            '</button>' +
+                            '</td>' +
+                            '</tr>'
                         );
                     }
                 } else {

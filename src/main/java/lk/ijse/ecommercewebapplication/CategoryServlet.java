@@ -110,6 +110,11 @@ public class CategoryServlet extends HttpServlet {
                 categoryDTOList.add(categoryDTO);
             }
 
+            req.setAttribute("totalCategories", getTotalCategories(connection));
+            req.setAttribute("activeCategories", getActiveCategories(connection));
+            req.setAttribute("productsCategorized", getProductsCategorized(connection));
+            req.setAttribute("uncategorizedProducts", getUncategorizedProducts(connection));
+
             req.setAttribute("categoryList", categoryDTOList);
             req.getRequestDispatcher(String.valueOf(redirectUrl)).forward(req, resp);
 
@@ -253,4 +258,49 @@ public class CategoryServlet extends HttpServlet {
             resp.sendRedirect("category");
         }
     }
+
+    private int getTotalCategories(Connection connection) throws SQLException {
+        String sql = "SELECT COUNT(*) as total FROM categories";
+        try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        }
+        return 0;
+    }
+
+    private int getActiveCategories(Connection connection) throws SQLException {
+        String sql = "SELECT COUNT(*) as active FROM categories WHERE status = 'Active'";
+        try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("active");
+            }
+        }
+        return 0;
+    }
+
+    private int getProductsCategorized(Connection connection) throws SQLException {
+        String sql = "SELECT COUNT(*) as total FROM products";
+        try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        }
+        return 0;
+    }
+
+    private int getUncategorizedProducts(Connection connection) throws SQLException {
+        String sql = "SELECT COUNT(*) as uncategorized FROM products WHERE categoryId NOT IN (SELECT id FROM categories)";
+        try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("uncategorized");
+            }
+        }
+        return 0;
+    }
+
 }
