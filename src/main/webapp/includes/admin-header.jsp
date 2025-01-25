@@ -58,7 +58,7 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/admin/orders.jsp"><i class="fa-solid fa-truck-fast me-1"></i> Orders</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/admin/categories.jsp"><i class="fa-solid fa-list me-1"></i> Categories</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/category"><i class="fa-solid fa-list me-1"></i> Categories</a>
                     </li>
                 </ul>
 

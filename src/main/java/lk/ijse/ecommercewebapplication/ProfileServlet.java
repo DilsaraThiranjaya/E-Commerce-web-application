@@ -72,8 +72,6 @@ public class ProfileServlet extends HttpServlet {
             }
         }
 
-
-
         try (Connection connection = dataSource.getConnection()) {
             if (role.equals("Customer")) {
                 getProfileStats(connection, req, resp);
