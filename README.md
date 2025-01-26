@@ -70,7 +70,7 @@ Full-featured e-commerce web application developed using JavaEE, Tomcat JDBC con
 
 
 ## 🎥 Demo Video
-[YouTube Demo Link]
+[[YouTube Demo Link]](https://youtu.be/M6UtgESC8C4?si=ok21Omd3DdX86tZ9)
 
 ## 🌟 Bonus Features
 - Advanced product search
