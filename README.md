@@ -56,6 +56,7 @@ Full-featured e-commerce web application developed using JavaEE, Tomcat JDBC con
 
 ## 🖼 Application Screenshots
 ![Home Page](https://github.com/DilsaraThiranjaya/E-Commerce-web-application/blob/111080352bfd0f222f993ead62370ef9183c36f8/src/main/webapp/assets/images/readme/001.png?raw=true)
+![Login Page](https://github.com/DilsaraThiranjaya/E-Commerce-web-application/blob/111080352bfd0f222f993ead62370ef9183c36f8/src/main/webapp/assets/images/readme/002.png?raw=true)
 
 
 ## 🎥 Demo Video
