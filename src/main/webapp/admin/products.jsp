@@ -327,7 +327,7 @@
                                     <button class="btn btn-sm btn-outline-primary me-2"
                                             onclick="editProduct(\${product.itemCode}, '\${product.name}',
                                                     '\${product.description}', \${product.unitPrice},
-                                                    \${product.qtyOnHand}, \${product.categoryId})">
+                                                    \${product.qtyOnHand}, '\${product.categoryId}')">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button class="btn btn-sm btn-outline-danger" onclick="deleteProduct(\${product.itemCode})">

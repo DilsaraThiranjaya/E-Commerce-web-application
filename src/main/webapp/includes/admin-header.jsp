@@ -49,7 +49,7 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/index.jsp"><i class="fas fa-home me-1"></i> Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/admin/customers.jsp"><i class="fa-solid fa-users me-1"></i> Customers</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/customer"><i class="fa-solid fa-users me-1"></i> Customers</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/product"><i class="fa-solid fa-cubes me-1"></i> Products</a>

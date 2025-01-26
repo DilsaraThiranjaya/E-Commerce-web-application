@@ -234,8 +234,6 @@
 
 <%@include file="/includes/footer.jsp" %>
 <%@include file="/includes/script.jsp" %>
-
-<script src="${pageContext.request.contextPath}/assets/js/orders.js"></script>
 <script>
     // Search orders
     $('.search-btn').click(function() {
@@ -332,7 +330,6 @@
             }
         });
     });
-
 </script>
 </body>
 </html>

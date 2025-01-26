@@ -22,4 +22,5 @@ public class UserDTO {
     private String status;
     private Timestamp date;
     private byte[] image; // To hold the LONGBLOB
+    private int orderCount;
 }

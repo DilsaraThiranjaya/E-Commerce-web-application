@@ -133,12 +133,15 @@ public class ProductServlet extends HttpServlet {
             JsonArrayBuilder productsArray = Json.createArrayBuilder();
 
             while (resultSet.next()) {
+                System.out.println();
                 JsonObjectBuilder product = Json.createObjectBuilder()
                         .add("itemCode", resultSet.getInt("itemCode"))
                         .add("name", resultSet.getString("name"))
+                        .add("categoryId", resultSet.getString("categoryId"))
                         .add("categoryName", resultSet.getString("category_name"))
                         .add("unitPrice", resultSet.getBigDecimal("unitPrice"))
                         .add("qtyOnHand", resultSet.getInt("qtyOnHand"))
+                        .add("description", resultSet.getString("description"))
                         .add("image", Base64.getEncoder().encodeToString(resultSet.getBytes("image")));
 
                 productsArray.add(product);
