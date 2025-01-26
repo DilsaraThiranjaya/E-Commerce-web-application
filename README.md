@@ -57,6 +57,16 @@ Full-featured e-commerce web application developed using JavaEE, Tomcat JDBC con
 ## 🖼 Application Screenshots
 ![Home Page](https://github.com/DilsaraThiranjaya/E-Commerce-web-application/blob/111080352bfd0f222f993ead62370ef9183c36f8/src/main/webapp/assets/images/readme/001.png?raw=true)
 ![Login Page](https://github.com/DilsaraThiranjaya/E-Commerce-web-application/blob/111080352bfd0f222f993ead62370ef9183c36f8/src/main/webapp/assets/images/readme/002.png?raw=true)
+![Signup Page](https://github.com/DilsaraThiranjaya/E-Commerce-web-application/blob/111080352bfd0f222f993ead62370ef9183c36f8/src/main/webapp/assets/images/readme/003.png?raw=true)
+![Customers Page](https://github.com/DilsaraThiranjaya/E-Commerce-web-application/blob/111080352bfd0f222f993ead62370ef9183c36f8/src/main/webapp/assets/images/readme/004.png?raw=true)
+![Products Page](https://github.com/DilsaraThiranjaya/E-Commerce-web-application/blob/111080352bfd0f222f993ead62370ef9183c36f8/src/main/webapp/assets/images/readme/005.png?raw=true)
+![Orders Page](https://github.com/DilsaraThiranjaya/E-Commerce-web-application/blob/111080352bfd0f222f993ead62370ef9183c36f8/src/main/webapp/assets/images/readme/006.png?raw=true)
+![Categories Page](https://github.com/DilsaraThiranjaya/E-Commerce-web-application/blob/111080352bfd0f222f993ead62370ef9183c36f8/src/main/webapp/assets/images/readme/007.png?raw=true)
+![Admin Profile Page](https://github.com/DilsaraThiranjaya/E-Commerce-web-application/blob/111080352bfd0f222f993ead62370ef9183c36f8/src/main/webapp/assets/images/readme/008.png?raw=true)
+![Store Page](https://github.com/DilsaraThiranjaya/E-Commerce-web-application/blob/111080352bfd0f222f993ead62370ef9183c36f8/src/main/webapp/assets/images/readme/009.png?raw=true)
+![My Orders Page](https://github.com/DilsaraThiranjaya/E-Commerce-web-application/blob/111080352bfd0f222f993ead62370ef9183c36f8/src/main/webapp/assets/images/readme/010.png?raw=true)
+![Cart Page](https://github.com/DilsaraThiranjaya/E-Commerce-web-application/blob/111080352bfd0f222f993ead62370ef9183c36f8/src/main/webapp/assets/images/readme/011.png?raw=true)
+![Customer Profile Page](https://github.com/DilsaraThiranjaya/E-Commerce-web-application/blob/111080352bfd0f222f993ead62370ef9183c36f8/src/main/webapp/assets/images/readme/012.png?raw=true)
 
 
 ## 🎥 Demo Video
