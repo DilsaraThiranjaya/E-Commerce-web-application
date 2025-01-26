@@ -1,6 +1,6 @@
 package lk.ijse.ecommercewebapplication;
 
-import dto.UserDTO;
+import lk.ijse.ecommercewebapplication.dto.UserDTO;
 import jakarta.annotation.Resource;
 import jakarta.json.Json;
 import jakarta.json.JsonArray;

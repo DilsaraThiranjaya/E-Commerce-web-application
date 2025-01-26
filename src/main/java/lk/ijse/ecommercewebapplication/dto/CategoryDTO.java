@@ -1,4 +1,4 @@
-package dto;
+package lk.ijse.ecommercewebapplication.dto;
 
 import lombok.*;
 

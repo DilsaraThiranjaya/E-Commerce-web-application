@@ -1,4 +1,4 @@
-<%@ page import="dto.CategoryDTO" %>
+<%@ page import="lk.ijse.ecommercewebapplication.dto.CategoryDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Base64" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>

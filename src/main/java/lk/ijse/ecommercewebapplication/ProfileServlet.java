@@ -1,7 +1,7 @@
 package lk.ijse.ecommercewebapplication;
 
-import dto.OrderDTO;
-import dto.UserDTO;
+import lk.ijse.ecommercewebapplication.dto.OrderDTO;
+import lk.ijse.ecommercewebapplication.dto.UserDTO;
 import jakarta.annotation.Resource;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;

@@ -42,6 +42,10 @@ hr {
     background-color: var(--dark-secondary);
     color: var(--text-primary);
     border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     border: 1px solid var(--border-color);
     transition: transform 0.2s;
     cursor: pointer;
@@ -53,7 +57,9 @@ hr {
 }
 
 .category-icon {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    height: 50px;
+    width: 50px;
     color: var(--blue-accent);
 }
 
@@ -78,7 +84,7 @@ hr {
 }
 
 .product-img {
-    height: 200px;
+    height: 200px !important;
     object-fit: contain;
     padding: 1rem;
 }

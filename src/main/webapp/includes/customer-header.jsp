@@ -32,7 +32,7 @@
         <nav class="navbar navbar-expand-lg navbar-light p-3">
             <!-- Logo -->
             <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="assets/images/Techno-logo.png" class="header-logo me-3" alt="logo">
+                <img src="${pageContext.request.contextPath}/assets/images/Techno-logo.png" class="header-logo me-3" alt="logo">
                 <span class="fw-bold text-light">Techno Computers</span>
             </a>
 
@@ -48,10 +48,10 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/index.jsp"><i class="fas fa-home me-1"></i> Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/customer/store.jsp"><i class="fas fa-store me-1"></i> Store</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/store"><i class="fas fa-store me-1"></i> Store</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/customer/my-orders.jsp"><i class="fas fa-clipboard-list me-1"></i> My Orders</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/myOrders"><i class="fas fa-clipboard-list me-1"></i> My Orders</a>
                     </li>
                 </ul>
 
@@ -72,9 +72,9 @@
                         </ul>
                     </div>
                     <div class="cart-icon position-relative">
-                        <a href="${pageContext.request.contextPath}/customer/cart.jsp" class="text-light text-decoration-none">
+                        <a href="${pageContext.request.contextPath}/cart" class="text-light text-decoration-none">
                             <i class="fas fa-shopping-cart"></i>
-                            <span class="cart-count">3</span>
+<%--                            <span class="cart-count">3</span>--%>
                         </a>
                     </div>
                 </div>

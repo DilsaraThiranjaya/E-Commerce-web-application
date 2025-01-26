@@ -1,7 +1,7 @@
-<%@ page import="dto.UserDTO" %>
+<%@ page import="lk.ijse.ecommercewebapplication.dto.UserDTO" %>
 <%@ page import="java.util.Base64" %>
 <%@ page import="java.time.LocalDateTime" %>
-<%@ page import="dto.OrderDTO" %>
+<%@ page import="lk.ijse.ecommercewebapplication.dto.OrderDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 

@@ -1,6 +1,6 @@
 package lk.ijse.ecommercewebapplication;
 
-import dto.OrderDTO;
+import lk.ijse.ecommercewebapplication.dto.OrderDTO;
 import jakarta.annotation.Resource;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,9 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
