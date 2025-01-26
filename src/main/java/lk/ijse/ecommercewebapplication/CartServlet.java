@@ -33,15 +33,15 @@ public class CartServlet extends HttpServlet {
         }
 
         try (Connection connection = dataSource.getConnection()) {
-            // Get or create cart for user
+            
             int cartId = getOrCreateCart(connection, userId);
 
-            // Get cart items
+            
             List<CartDetailDTO> cartItems = getCartItems(connection, cartId);
 
-            // Calculate totals
+            
             double subtotal = calculateSubtotal(cartItems);
-            double shipping = 350.00; // Fixed shipping cost
+            double shipping = 350.00; 
             double total = subtotal + shipping;
 
             req.setAttribute("cartItems", cartItems);
@@ -94,7 +94,7 @@ public class CartServlet extends HttpServlet {
 
         int cartId = getOrCreateCart(connection, userId);
 
-        // Check if item already exists in cart
+        
         String checkSql = "SELECT quantity FROM cart_details WHERE cartId = ? AND itemCode = ?";
         try (PreparedStatement pstm = connection.prepareStatement(checkSql)) {
             pstm.setInt(1, cartId);
@@ -102,7 +102,7 @@ public class CartServlet extends HttpServlet {
             ResultSet rs = pstm.executeQuery();
 
             if (rs.next()) {
-                // Update existing item quantity
+                
                 int currentQty = rs.getInt("quantity");
                 String updateSql = "UPDATE cart_details SET quantity = ? WHERE cartId = ? AND itemCode = ?";
                 try (PreparedStatement updatePstm = connection.prepareStatement(updateSql)) {
@@ -112,7 +112,7 @@ public class CartServlet extends HttpServlet {
                     updatePstm.executeUpdate();
                 }
             } else {
-                // Add new item to cart
+                
                 String insertSql = "INSERT INTO cart_details (cartId, itemCode, quantity) VALUES (?, ?, ?)";
                 try (PreparedStatement insertPstm = connection.prepareStatement(insertSql)) {
                     insertPstm.setInt(1, cartId);
@@ -141,7 +141,7 @@ public class CartServlet extends HttpServlet {
             pstm.executeUpdate();
         }
 
-        // Return updated cart totals
+        
         List<CartDetailDTO> cartItems = getCartItems(connection, cartId);
         double subtotal = calculateSubtotal(cartItems);
         double shipping = 350.00;
@@ -174,7 +174,7 @@ public class CartServlet extends HttpServlet {
     }
 
     private int getOrCreateCart(Connection connection, String userId) throws SQLException {
-        // Check if user has an existing cart
+        
         String selectSql = "SELECT id FROM cart WHERE userId = ?";
         try (PreparedStatement pstm = connection.prepareStatement(selectSql)) {
             pstm.setString(1, userId);
@@ -185,7 +185,7 @@ public class CartServlet extends HttpServlet {
             }
         }
 
-        // Create new cart if none exists
+        
         String insertSql = "INSERT INTO cart (userId) VALUES (?)";
         try (PreparedStatement pstm = connection.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
             pstm.setString(1, userId);

@@ -45,6 +45,9 @@
             <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarContent">
                 <ul class="navbar-nav mb-2 mb-lg-0 mt-lg-0 mt-3">
                     <li class="nav-item me-2">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/index.jsp"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item me-2">
                         <a class="nav-link" href="${pageContext.request.contextPath}/log-in.jsp"><i class="fas fa-sign-in-alt me-1"></i> Login</a>
                     </li>
                     <li class="nav-item">

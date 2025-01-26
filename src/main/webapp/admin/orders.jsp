@@ -170,15 +170,15 @@
                             <div class="col-md-6">
                                 <div class="d-flex justify-content-between mb-2">
                                     <span>Subtotal:</span>
-                                    <span id="orderSubtotal">$0.00</span>
+                                    <span id="orderSubtotal">Rs. 0.00</span>
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span>Shipping:</span>
-                                    <span id="orderShipping">$0.00</span>
+                                    <span id="orderShipping">Rs. 0.00</span>
                                 </div>
                                 <div class="d-flex justify-content-between fw-bold mt-2 pt-2 border-top">
                                     <span>Total:</span>
-                                    <span id="orderTotal">$0.00</span>
+                                    <span id="orderTotal">Rs. 0.00</span>
                                 </div>
                             </div>
                         </div>
@@ -235,101 +235,160 @@
 <%@include file="/includes/footer.jsp" %>
 <%@include file="/includes/script.jsp" %>
 <script>
-    // Search orders
-    $('.search-btn').click(function() {
-        const searchType = $('.search-select').val();
-        const searchValue = $('.search-input').val();
-        const status = $('.filter-select').val();
-        const date = $('.date-filter').val();
+    // Search and filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchSelect = document.querySelector('.search-select');
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+        const statusFilter = document.querySelector('.filter-select');
+        const dateFilter = document.querySelector('.date-filter');
 
-        $.ajax({
-            url: '/E_Commerce_web_application_war_exploded/orders',
-            type: 'GET',
-            data: {
-                searchType: searchType,
-                searchValue: searchValue,
-                status: status,
-                date: date
-            },
-            success: function(response) {
-                location.reload();
-            },
-            error: function() {
-                alert('Error searching orders.');
+        function performSearch() {
+            const searchType = searchSelect.value;
+            const searchValue = searchInput.value;
+            const status = statusFilter.value;
+            const date = dateFilter.value;
+
+            fetch('/E_Commerce_web_application_war_exploded/order?action=search&searchType='+searchType+'&searchValue='+searchValue+'&status='+status+'&date='+date)
+                .then(response => response.json())
+                .then(data => updateOrdersTable(data))
+                .catch(error => console.error('Error:', error));
+        }
+
+        searchBtn.addEventListener('click', performSearch);
+        statusFilter.addEventListener('change', performSearch);
+        dateFilter.addEventListener('change', performSearch);
+
+        function updateOrdersTable(orders) {
+            const tbody = document.querySelector('tbody');
+            tbody.innerHTML = '';
+
+            if (orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center">No orders found.</td></tr>';
+                return;
             }
-        });
+
+            orders.forEach(order => {
+                const statusClass = order.status === 'Pending' ? 'warning' : 'success';
+                const paymentClass = order.paymentMethod === 'COD' ? 'success' : 'info';
+
+                const row =
+                    '<tr>' +
+                    '<td>' + order.orderId + '</td>' +
+                    '<td>' +
+                    '<div class="d-flex align-items-center">' +
+                    (order.customerImage ?
+                        '<img src="data:image/jpeg;base64,' + order.customerImage + '" ' +
+                        'class="customer-avatar" alt="Customer">' : '') +
+                    '<div class="ms-3">' + order.customerName + '</div>' +
+                    '</div>' +
+                    '</td>' +
+                    '<td>' + order.date + '</td>' +
+                    '<td>Rs. ' + order.total + '</td>' +
+                    '<td><span class="badge bg-' + statusClass + '">' + order.status + '</span></td>' +
+                    '<td><span class="badge bg-' + paymentClass + '">' + order.paymentMethod + '</span></td>' +
+                    '<td class="text-end">' +
+                    '<button class="btn btn-sm btn-outline-primary me-2" onclick="viewOrder(\'' + order.orderId + '\')">' +
+                    '<i class="fas fa-eye"></i>' +
+                    '</button>' +
+                    '<button class="btn btn-sm btn-outline-warning me-2" ' +
+                    'onclick="changeOrderStatus(\'' + order.orderId + '\', \'' + order.status + '\')" ' +
+                    'title="Change Status">' +
+                    '<i class="fas fa-exchange-alt"></i>' +
+                    '</button>' +
+                    '</td>' +
+                    '</tr>';
+
+                tbody.innerHTML += row;
+            });
+        }
     });
 
     // View order details
     function viewOrder(orderId) {
-        $.ajax({
-            url: '/E_Commerce_web_application_war_exploded/orders',
-            type: 'GET',
-            data: {
-                action: 'view',
-                orderId: orderId
-            },
-            success: function(order) {
-                // Populate modal with order details
-                $('.modal-title').text('Order Details #' + order.orderId);
-                $('.customer-details').html(`
-                <p class="mb-1">${order.customerName}</p>
-                <p class="mb-1">${order.email}</p>
-                <p class="mb-1">${order.phone}</p>
-            `);
-                $('.shipping-details').html(`
-                <p class="mb-1">${order.address}</p>
-                <p class="mb-1">${order.city}</p>
-                <p class="mb-1">${order.state} ${order.zipCode}</p>
-            `);
+        fetch('/E_Commerce_web_application_war_exploded/order?action=view&orderId='+orderId)
+            .then(response => response.json())
+            .then(data => {
+                // Update customer information
+                document.querySelector('.customer-details').innerHTML =
+                    '<p><strong>Name:</strong> ' + data.customerName + '</p>' +
+                    '<p><strong>Email:</strong> ' + data.customerEmail + '</p>' +
+                    '<p><strong>Phone:</strong> ' + data.customerPhone + '</p>';
+
+
+                // Update shipping address
+                document.querySelector('.shipping-details').innerHTML =
+                    '<p>' + data.address + '</p>' +
+                    '<p>' + data.city + ', ' + data.state + ' ' + data.zipCode + '</p>';
+
+
+                // Update order items
+                const tbody = document.querySelector('#viewOrderModal .order-items tbody');
+                tbody.innerHTML = '';
+                data.items.forEach(function(item) {
+                    tbody.innerHTML +=
+                        '<tr>' +
+                        '<td>' + item.productName + '</td>' +
+                        '<td>' + item.quantity + '</td>' +
+                        '<td>Rs. ' + item.unitPrice + '</td>' +
+                        '<td>Rs. ' + (item.quantity * item.unitPrice) + '</td>' +
+                        '</tr>';
+                });
+
+
+                // Update order summary
+                document.getElementById('orderSubtotal').textContent = 'Rs. ' + data.subTotal;
+                document.getElementById('orderShipping').textContent = 'Rs. ' + data.shippingCost;
+                document.getElementById('orderTotal').textContent = 'Rs. ' + data.total;
+
 
                 // Show the modal
-                $('#viewOrderModal').modal('show');
-            },
-            error: function() {
-                alert('Error loading order details.');
-            }
-        });
+                new bootstrap.Modal(document.getElementById('viewOrderModal')).show();
+            })
+            .catch(error => console.error('Error:', error));
     }
 
     // Change order status
     function changeOrderStatus(orderId, currentStatus) {
-        $('#currentStatusBadge')
-            .removeClass('bg-warning bg-success')
-            .addClass(currentStatus === 'Pending' ? 'bg-warning' : 'bg-success')
-            .text(currentStatus);
+        const modal = document.getElementById('changeStatusModal');
+        const statusBadge = document.getElementById('currentStatusBadge');
+        const newStatusSelect = document.getElementById('newStatus');
 
-        $('#newStatus').val(currentStatus);
-        $('#changeStatusModal').data('orderId', orderId).modal('show');
+        // Set current status badge
+        statusBadge.className = 'badge bg-' + (currentStatus === 'Pending' ? 'warning' : 'success');
+        statusBadge.textContent = currentStatus;
+
+        // Set new status dropdown to exclude current status
+        newStatusSelect.value = currentStatus === 'Pending' ? 'Completed' : 'Pending';
+
+        // Show modal
+        new bootstrap.Modal(modal).show();
+
+        // Handle status update
+        document.getElementById('updateStatusBtn').onclick = function() {
+            const formData = new FormData();
+            formData.append('orderId', orderId);
+            formData.append('status', newStatusSelect.value);
+            formData.append('notify', document.getElementById('notifyCustomer').checked);
+
+            fetch('/E_Commerce_web_application_war_exploded/order', {
+                method: 'PUT',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('Failed to update order status');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while updating the order status');
+                });
+        };
     }
-
-    // Update order status
-    $('#updateStatusBtn').click(function() {
-        const orderId = $('#changeStatusModal').data('orderId');
-        const newStatus = $('#newStatus').val();
-        const notifyCustomer = $('#notifyCustomer').is(':checked');
-
-        $.ajax({
-            url: '/E_Commerce_web_application_war_exploded/orders',
-            type: 'PUT',
-            data: {
-                orderId: orderId,
-                status: newStatus,
-                notify: notifyCustomer
-            },
-            success: function(response) {
-                if (response.status === 'success') {
-                    $('#changeStatusModal').modal('hide');
-                    location.reload();
-                } else {
-                    alert('Error updating order status.');
-                }
-            },
-            error: function() {
-                alert('Error updating order status.');
-            }
-        });
-    });
 </script>
 </body>
 </html>

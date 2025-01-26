@@ -40,7 +40,7 @@ public class CustomerServlet extends HttpServlet {
         }
 
         try (Connection connection = dataSource.getConnection()) {
-            // Get customer statistics
+            
             String statsSql = """
                 SELECT 
                     COUNT(*) as total_customers,
@@ -61,7 +61,7 @@ public class CustomerServlet extends HttpServlet {
                 req.setAttribute("newCustomers", statsRs.getInt("new_customers"));
             }
 
-            // Get customer list with order counts
+            
             String sql = """
                 SELECT u.*, 
                        (SELECT COUNT(*) FROM orders o WHERE o.userId = u.userId) as order_count 
@@ -173,7 +173,7 @@ public class CustomerServlet extends HttpServlet {
         int userId = Integer.parseInt(req.getParameter("userId"));
 
         try (Connection connection = dataSource.getConnection()) {
-            // Get customer details
+            
             String customerSql = """
                 SELECT u.*, 
                        (SELECT COUNT(*) FROM orders o WHERE o.userId = u.userId) as order_count 
@@ -207,7 +207,7 @@ public class CustomerServlet extends HttpServlet {
 
                 response.add("customer", customer);
 
-                // Get recent orders
+                
                 String ordersSql = """
                     SELECT o.orderId, o.date, o.status,
                            (o.subTotal + o.shipingCost) as total

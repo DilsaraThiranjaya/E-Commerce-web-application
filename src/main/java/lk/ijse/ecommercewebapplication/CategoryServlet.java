@@ -43,12 +43,12 @@ public class CategoryServlet extends HttpServlet {
             try (Connection connection = dataSource.getConnection()) {
                 String sql = "SELECT * FROM categories WHERE name LIKE ?";
                 PreparedStatement pstm = connection.prepareStatement(sql);
-                pstm.setString(1, "%" + name + "%"); // Use LIKE for partial matching
+                pstm.setString(1, "%" + name + "%"); 
 
                 ResultSet resultSet = pstm.executeQuery();
                 JsonArrayBuilder allCategory = Json.createArrayBuilder();
 
-                while (resultSet.next()) { // Use while to process all matching results
+                while (resultSet.next()) { 
                     String id = resultSet.getString("id");
                     String desc = resultSet.getString("description");
                     String status = resultSet.getString("status");
@@ -70,7 +70,7 @@ public class CategoryServlet extends HttpServlet {
             } catch (SQLException e) {
                 resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 resp.getWriter().write("Database error occurred");
-                e.printStackTrace(); // Log for server-side tracking
+                e.printStackTrace(); 
             }
             return;
         }
@@ -79,7 +79,7 @@ public class CategoryServlet extends HttpServlet {
             String successMessage = (String) req.getSession().getAttribute("categoryMessage");
         String errorMessage = (String) req.getSession().getAttribute("categoryError");
 
-        // Build the URL with the parameters if they exist
+        
         StringBuilder redirectUrl = new StringBuilder();
 
         if (errorMessage != null) {
@@ -209,13 +209,13 @@ public class CategoryServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Read the incoming JSON data (or form data, as you send it as FormData)
+        
         int categoryId = Integer.parseInt(req.getParameter("categoryId"));
         String name = req.getParameter("name");
         String description = req.getParameter("description");
         String status = req.getParameter("status");
 
-        Part iconPart = req.getPart("icon");  // If an icon is uploaded
+        Part iconPart = req.getPart("icon");  
         InputStream iconInputStream = null;
 
         if (iconPart != null) {
@@ -223,14 +223,14 @@ public class CategoryServlet extends HttpServlet {
         }
 
         try (Connection connection = dataSource.getConnection()) {
-            // Prepare the SQL query to update the category
+            
             String sql = "UPDATE categories SET name = ?, description = ?, status = ?, icon = ? WHERE id = ?";
             PreparedStatement pstm = connection.prepareStatement(sql);
             pstm.setString(1, name);
             pstm.setString(2, description);
             pstm.setString(3, status);
 
-            // If an icon is uploaded, use it; otherwise, set it to null
+            
             if (iconInputStream != null) {
                 pstm.setBlob(4, iconInputStream);
             } else {

@@ -36,7 +36,7 @@ public class CheckOutServlet extends HttpServlet {
         }
 
         try (Connection connection = dataSource.getConnection()) {
-            // Get cart and its details
+            
             CartDTO cart = getCart(connection, userId);
             if (cart == null) {
                 resp.sendRedirect("cart?error=No items in cart");
@@ -49,7 +49,7 @@ public class CheckOutServlet extends HttpServlet {
                 return;
             }
 
-            // Convert cart details to order details
+            
             List<OrderDetailDTO> orderDetails = new ArrayList<>();
             BigDecimal subtotal = BigDecimal.ZERO;
 
@@ -66,7 +66,7 @@ public class CheckOutServlet extends HttpServlet {
                 orderDetails.add(orderDetail);
             }
 
-            // Get user details
+            
             String userSql = "SELECT fullName, image FROM users WHERE userId = ?";
             PreparedStatement userStmt = connection.prepareStatement(userSql);
             userStmt.setString(1, userId);
@@ -79,11 +79,11 @@ public class CheckOutServlet extends HttpServlet {
                 customerImage = userRs.getBytes("image");
             }
 
-            // Calculate totals
+            
             BigDecimal shippingCost = new BigDecimal("29.99");
             BigDecimal total = subtotal.add(shippingCost);
 
-            // Create OrderDTO for the session
+            
             OrderDTO orderDTO = new OrderDTO();
             orderDTO.setUserId(Integer.parseInt(userId));
             orderDTO.setSubTotal(subtotal);
@@ -92,11 +92,11 @@ public class CheckOutServlet extends HttpServlet {
             orderDTO.setCustomerName(customerName);
             orderDTO.setCustomerImage(customerImage);
 
-            // Store in session for order processing
+            
             session.setAttribute("orderDTO", orderDTO);
             session.setAttribute("cartId", cart.getId());
 
-            // Set attributes for the JSP
+            
             req.setAttribute("orderDTO", orderDTO);
             req.setAttribute("total", total);
             req.setAttribute("cartDetails", cartDetails);
@@ -161,7 +161,7 @@ public class CheckOutServlet extends HttpServlet {
             return;
         }
 
-        // Update OrderDTO with form data
+        
         orderDTO.setOrderId(getNextOrderId());
         orderDTO.setDate(Date.valueOf(LocalDate.now()));
         orderDTO.setAddress(req.getParameter("address"));
@@ -175,7 +175,7 @@ public class CheckOutServlet extends HttpServlet {
             connection.setAutoCommit(false);
 
             try {
-                // Insert into orders table
+                
                 String orderSql = "INSERT INTO orders (orderId, date, userId, address, city, state, zipCode, status, subTotal, shipingCost, paymentMethod) " +
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -194,7 +194,7 @@ public class CheckOutServlet extends HttpServlet {
 
                 orderStmt.executeUpdate();
 
-                // Insert order details and update product quantities
+                
                 String detailsSql = "INSERT INTO order_details (orderId, itemCode, quantity) VALUES (?, ?, ?)";
                 PreparedStatement detailsStmt = connection.prepareStatement(detailsSql);
 
@@ -202,19 +202,19 @@ public class CheckOutServlet extends HttpServlet {
                 PreparedStatement updateProductStmt = connection.prepareStatement(updateProductSql);
 
                 for (OrderDetailDTO detail : orderDTO.getOrderDetails()) {
-                    // Insert order detail
+                    
                     detailsStmt.setString(1, orderDTO.getOrderId());
                     detailsStmt.setInt(2, detail.getItemCode());
                     detailsStmt.setInt(3, detail.getQuantity());
                     detailsStmt.executeUpdate();
 
-                    // Update product quantity
+                    
                     updateProductStmt.setInt(1, detail.getQuantity());
                     updateProductStmt.setInt(2, detail.getItemCode());
                     updateProductStmt.executeUpdate();
                 }
 
-                // Clear cart details
+                
                 String clearCartDetailsSql = "DELETE FROM cart_details WHERE cartId = ?";
                 PreparedStatement clearCartDetailsStmt = connection.prepareStatement(clearCartDetailsSql);
                 clearCartDetailsStmt.setInt(1, cartId);
@@ -222,7 +222,7 @@ public class CheckOutServlet extends HttpServlet {
 
                 connection.commit();
 
-                // Clean up session
+                
                 session.removeAttribute("orderDTO");
                 session.removeAttribute("cartId");
 
@@ -247,21 +247,21 @@ public class CheckOutServlet extends HttpServlet {
 
             if (rs.next()) {
                 String lastOrderId = rs.getString("orderId");
-                // Extract the numeric part and increment it
+                
                 int lastOrderNumber = 0;
                 if (lastOrderId != null && lastOrderId.startsWith("ORD-")) {
-                    String numericPart = lastOrderId.substring(4); // Extract the part after "ORD-"
+                    String numericPart = lastOrderId.substring(4); 
                     try {
-                        lastOrderNumber = Integer.parseInt(numericPart); // Convert to integer
+                        lastOrderNumber = Integer.parseInt(numericPart); 
                     } catch (NumberFormatException e) {
                        e.printStackTrace();
                     }
                 }
 
-                // Increment the last order number
+                
                 int newOrderNumber = lastOrderNumber + 1;
 
-                // Generate the new order ID with the format "ORD-<new number>"
+                
                 String newOrderId = "ORD-" + newOrderNumber;
                 return newOrderId;
             } else {

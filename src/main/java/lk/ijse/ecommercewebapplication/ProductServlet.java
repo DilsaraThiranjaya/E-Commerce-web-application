@@ -84,7 +84,7 @@ public class ProductServlet extends HttpServlet {
                 productList.add(productDTO);
             }
 
-            // Get statistics
+            
             sql = "SELECT " +
                     "(SELECT COUNT(*) FROM products) as total_products, " +
                     "(SELECT COUNT(*) FROM products WHERE qtyOnHand > 0) as in_stock, " +

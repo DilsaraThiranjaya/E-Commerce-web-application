@@ -33,40 +33,40 @@ public class ProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Get the logged-in user's email from the session
+        
         String email = (String) req.getSession().getAttribute("userEmail");
         String role = (String) req.getSession().getAttribute("userRole");
 
-        // Ensure the email is not null
+        
         if (email == null || email.isEmpty() && role == null || role.isEmpty()) {
             resp.sendRedirect("log-in.jsp?error=Session expired. Please log in again.");
             return;
         }
 
-        // Retrieve any error or message from the session
+        
         String errorMessage = (String) req.getSession().getAttribute("profileError");
         String successMessage = (String) req.getSession().getAttribute("profileMessage");
 
-        // Build the URL with the parameters if they exist
+        
         StringBuilder redirectUrl = new StringBuilder();
 
         if (role.equals("Admin")) {
             if (errorMessage != null) {
                 redirectUrl.append("admin/admin-profile.jsp?error=").append(URLEncoder.encode(errorMessage, "UTF-8"));
-                req.getSession().removeAttribute("profileError"); // Remove after use
+                req.getSession().removeAttribute("profileError"); 
             } else if (successMessage != null) {
                 redirectUrl.append("admin/admin-profile.jsp?message=").append(URLEncoder.encode(successMessage, "UTF-8"));
-                req.getSession().removeAttribute("profileMessage"); // Remove after use
+                req.getSession().removeAttribute("profileMessage"); 
             } else {
                 redirectUrl.append("admin/admin-profile.jsp");
             }
         } else {
             if (errorMessage != null) {
                 redirectUrl.append("customer/customer-profile.jsp?error=").append(URLEncoder.encode(errorMessage, "UTF-8"));
-                req.getSession().removeAttribute("profileError"); // Remove after use
+                req.getSession().removeAttribute("profileError"); 
             } else if (successMessage != null) {
                 redirectUrl.append("customer/customer-profile.jsp?message=").append(URLEncoder.encode(successMessage, "UTF-8"));
-                req.getSession().removeAttribute("profileMessage"); // Remove after use
+                req.getSession().removeAttribute("profileMessage"); 
             } else {
                 redirectUrl.append("customer/customer-profile.jsp");
             }
@@ -78,13 +78,13 @@ public class ProfileServlet extends HttpServlet {
                 getOrderList(connection, req, resp);
             }
 
-            // SQL query to fetch the user's details
+            
             String sql = "SELECT * FROM users WHERE email=?";
             PreparedStatement pstm = connection.prepareStatement(sql);
             pstm.setString(1, email);
             ResultSet resultSet = pstm.executeQuery();
 
-            // If the user exists, set their details in a UserDTO object
+            
             if (resultSet.next()) {
                 UserDTO user = new UserDTO();
                 user.setUserId(resultSet.getInt("userId"));
@@ -98,11 +98,11 @@ public class ProfileServlet extends HttpServlet {
                 user.setStatus(resultSet.getString("status"));
                 user.setImage(resultSet.getBytes("image"));
 
-                // Set the user details in the request scope and forward to JSP
+                
                 req.setAttribute("user", user);
                 req.getRequestDispatcher(String.valueOf(redirectUrl)).forward(req, resp);
             } else {
-                // If no user is found, redirect with an error
+                
                 resp.sendRedirect("log-in.jsp?error=User not found.");
             }
         } catch (SQLException e) {
@@ -132,7 +132,7 @@ public class ProfileServlet extends HttpServlet {
             orderDTO.setZipCode(resultSet.getString("zipCode"));
             orderDTO.setStatus(resultSet.getString("status"));
             orderDTO.setSubTotal(resultSet.getBigDecimal("subTotal"));
-            orderDTO.setShippingCost(resultSet.getBigDecimal("shipingCost")); // Note the typo in your column name
+            orderDTO.setShippingCost(resultSet.getBigDecimal("shipingCost")); 
             orderDTO.setPaymentMethod(resultSet.getString("paymentMethod"));
 
             orderDTOList.add(orderDTO);
@@ -158,12 +158,12 @@ public class ProfileServlet extends HttpServlet {
         ResultSet resultSet = pstm.executeQuery();
 
         if (resultSet.next()) {
-            // Fetch and format total orders (string)
+            
             String totalOrders = resultSet.getString("total_orders");
             req.setAttribute("totalOrders", totalOrders);
 
             if (resultSet.getString("total_spend") != null) {
-                // Fetch and format total spend (decimal with Rs.)
+                
                 BigDecimal totalSpend = resultSet.getBigDecimal("total_spend");
                 String formattedTotalSpend = "Rs. " + totalSpend.setScale(2, RoundingMode.HALF_UP);
                 req.setAttribute("totalSpend", formattedTotalSpend);
@@ -172,7 +172,7 @@ public class ProfileServlet extends HttpServlet {
             }
 
             if (resultSet.getString("orders_current_month") != null) {
-                // Fetch and format orders in current month (string)
+                
                 String ordersCurrentMonth = resultSet.getString("orders_current_month");
                 req.setAttribute("ordersCurrentMonth", ordersCurrentMonth);
             } else {
@@ -240,11 +240,11 @@ public class ProfileServlet extends HttpServlet {
 
             if (i > 0) {
                 req.getSession().invalidate();
-                req.getSession(true).setAttribute("userEmail", email); // Add the updated email
+                req.getSession(true).setAttribute("userEmail", email); 
                 req.getSession().setAttribute("userRole", role);
                 req.getSession().setAttribute("profileMessage", "Successfully profile information updated.");
 
-                // Reapply the user role
+                
                 resp.sendRedirect("profile");
             } else {
                 req.getSession().setAttribute("profileError", "Failed to update profile information.");

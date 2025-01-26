@@ -17,7 +17,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "orderServlet", value = "/myOrders")
+@WebServlet(name = "myOrderServlet", value = "/myOrders")
 public class MyOrderServlet extends HttpServlet {
     @Resource(name = "java:comp/env/jdbc/pool")
     private DataSource dataSource;
@@ -33,13 +33,13 @@ public class MyOrderServlet extends HttpServlet {
         }
 
         try (Connection connection = dataSource.getConnection()) {
-            // Get order statistics
+            
             req.setAttribute("totalOrders", getTotalOrders(connection, userId));
             req.setAttribute("activeOrders", getActiveOrders(connection, userId));
             req.setAttribute("totalSpent", getTotalSpent(connection, userId));
             req.setAttribute("lastOrderDate", getLastOrderDate(connection, userId));
 
-            // Get all orders for the user
+            
             List<OrderDTO> orders = getUserOrders(connection, userId);
             req.setAttribute("orders", orders);
 
@@ -125,7 +125,7 @@ public class MyOrderServlet extends HttpServlet {
                 order.setCustomerName(rs.getString("fullName"));
                 order.setCustomerImage(rs.getBytes("image"));
 
-                // Get order details
+                
                 order.setOrderDetails(getOrderDetails(connection, order.getOrderId()));
                 orders.add(order);
             }

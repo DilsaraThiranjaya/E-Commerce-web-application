@@ -43,7 +43,7 @@ public class StoreServlet extends HttpServlet {
             return;
         }
 
-        // Default: Load all products and categories
+        
         try (Connection connection = dataSource.getConnection()) {
             List<ProductDTO> products = getAllProducts(connection);
             List<CategoryDTO> categories = getAllCategories(connection);

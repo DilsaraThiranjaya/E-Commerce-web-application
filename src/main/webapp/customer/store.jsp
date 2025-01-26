@@ -25,8 +25,10 @@
         %>
         <div class="col-6 col-md-3 col-lg-2">
             <div class="category-card card text-center p-3" onclick="filterByCategory(<%= category.getId() %>)">
-                <img src="data:image/png;base64,<%= base64Icon %>" alt="<%= category.getName() %>" class="category-icon mb-2">
-                <div><%= category.getName() %></div>
+                <img src="data:image/png;base64,<%= base64Icon %>" alt="<%= category.getName() %>"
+                     class="category-icon mb-2">
+                <div><%= category.getName() %>
+                </div>
             </div>
         </div>
         <%
@@ -86,13 +88,18 @@
                 %>
                 <div class="col-md-6 col-lg-4">
                     <div class="product-card card">
-                        <span class="stock-badge"><%= product.getQtyOnHand() > 0 ? "IN STOCK" : "OUT OF STOCK" %></span>
-                        <img src="data:image/png;base64,<%= base64Image %>" class="product-img" alt="<%= product.getName() %>">
+                        <span class="<%= product.getQtyOnHand() > 0 ? "stock-badge" : "no-stock-badge" %>">
+                        <%= product.getQtyOnHand() > 0 ? "IN STOCK" : "OUT OF STOCK" %></span>
+                        <img src="data:image/png;base64,<%= base64Image %>" class="product-img"
+                             alt="<%= product.getName() %>">
                         <div class="card-body">
-                            <h5 class="product-title"><%= product.getName() %></h5>
-                            <div class="product-category"><%= product.getCategoryName() %></div>
+                            <h5 class="product-title"><%= product.getName() %>
+                            </h5>
+                            <div class="product-category"><%= product.getCategoryName() %>
+                            </div>
                             <div class="mt-2">
-                                <div class="product-price">Rs. <%= String.format("%,.2f", product.getUnitPrice()) %></div>
+                                <div class="product-price">Rs. <%= String.format("%,.2f", product.getUnitPrice()) %>
+                                </div>
                             </div>
                             <button
                                     class="btn btn-secondary btn-view"
@@ -174,20 +181,26 @@
             const productHtml =
                 '<div class="col-md-6 col-lg-4">' +
                 '<div class="product-card card">' +
-                '<span class="stock-badge">' + (product.qtyOnHand > 0 ? 'IN STOCK' : 'OUT OF STOCK') + '</span>' +
+                '<span class="' + (product.qtyOnHand > 0 ? 'stock-badge' : 'no-stock-badge') + '">' + (product.qtyOnHand > 0 ? 'IN STOCK' : 'OUT OF STOCK') + '</span>' +
                 '<img src="data:image/png;base64,' + product.image + '" class="product-img" alt="' + product.name + '">' +
                 '<div class="card-body">' +
                 '<h5 class="product-title">' + product.name + '</h5>' +
                 '<div class="product-category">' + product.categoryName + '</div>' +
                 '<div class="mt-2">' +
-                '<div class="product-price">Rs. ' + product.price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '</div>' +
+                '<div class="product-price">Rs. ' + product.price.toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }) + '</div>' +
                 '</div>' +
                 '<button class="btn btn-secondary btn-view" ' +
                 'data-bs-toggle="modal" ' +
                 'data-bs-target="#productModal" ' +
                 'data-name="' + product.name + '" ' +
                 'data-category="' + product.categoryName + '" ' +
-                'data-price="Rs. ' + product.price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '" ' +
+                'data-price="Rs. ' + product.price.toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }) + '" ' +
                 'data-image="data:image/png;base64,' + product.image + '" ' +
                 'data-description="' + product.description + '">' +
                 'View Details' +
@@ -199,7 +212,7 @@
                 '</div>' +
                 '</div>';
 
-        container.innerHTML += productHtml;
+            container.innerHTML += productHtml;
         });
 
         // Reinitialize modal event listeners
@@ -225,7 +238,7 @@
         const inStock = document.getElementById('inStock').checked;
         const outOfStock = document.getElementById('outOfStock').checked;
 
-        fetch('/E_Commerce_web_application_war_exploded/store?action=filter&maxPrice='+ maxPrice +'&inStock='+ inStock +'&outOfStock='+outOfStock)
+        fetch('/E_Commerce_web_application_war_exploded/store?action=filter&maxPrice=' + maxPrice + '&inStock=' + inStock + '&outOfStock=' + outOfStock)
             .then(response => response.json())
             .then(products => {
                 updateProductsGrid(products);
@@ -237,7 +250,7 @@
     }
 
     function filterByCategory(categoryId) {
-        fetch('/E_Commerce_web_application_war_exploded/store?action=category&categoryId='+categoryId)
+        fetch('/E_Commerce_web_application_war_exploded/store?action=category&categoryId=' + categoryId)
             .then(response => response.json())
             .then(products => {
                 updateProductsGrid(products);
@@ -254,7 +267,7 @@
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: 'action=add&itemCode='+itemCode+'&quantity=1'
+            body: 'action=add&itemCode=' + itemCode + '&quantity=1'
         })
             .then(response => response.json())
             .then(data => {
@@ -303,11 +316,11 @@
     }
 
     // Initialize price range display
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const priceRange = document.getElementById('priceRange');
         const priceDisplay = document.querySelector('.price-range');
 
-        priceRange.addEventListener('input', function() {
+        priceRange.addEventListener('input', function () {
             const value = this.value;
             priceDisplay.textContent = 'Rs. 0 - Rs. ' + parseInt(value).toLocaleString();
         });
